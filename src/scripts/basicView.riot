@@ -1,0 +1,111 @@
+<basicView>
+    <style>
+        h1 {
+            font-family: Trebuchet MS;
+            font-size: 5vh;
+            padding: 1vh 1vh 1vh 1vh;
+            color: white;
+            background-color: #202020;
+            border-radius: 5px;
+            margin-bottom: .6vh;
+            margin-right: .6vw;
+            margin-left: .3vw;
+            margin-top: .6vh;
+        }
+        input {
+            display:none
+        }
+        text {
+            display: inline-block;
+            font-family: Trebuchet MS;
+            font-size: 1.5vh;
+        }
+        button {
+            font-family: Trebuchet MS;
+            margin-bottom: 1vh;
+            width: 80%;
+            overflow: auto;
+
+            box-shadow:inset 0px 1px 0px 0px #ffffff;
+            background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+            background-color:#ffffff;
+            border-radius:6px;
+            border:1px solid #dcdcdc;
+            display:inline-block;
+            cursor:pointer;
+            color:#000000;
+            font-size:1.5vh;
+            font-weight:bold;
+            padding:0.5vh 0.5vh;
+            text-decoration:none;
+            text-shadow:0px 1px 0px #ffffff;
+        }
+        button:hover {
+            background:linear-gradient(to bottom, #ffffff 30%, #a6a49f 100%);
+            background-color:#f6f6f6;
+        }
+        button:active {
+            position:relative;
+            top:1px;
+        }
+        aside {
+            width: 15vw;
+            float: left;
+            font-family: Trebuchet MS;
+            background-color: #202020;
+            color:white;
+            margin-right: .3vw;
+            border-radius:5px;
+            margin-left: .3vw;
+            overflow: auto;
+            height: 90vh;
+            position: relative;
+            text-align: center;
+        }
+        .loading
+        {
+            font-size: 3vh;
+            display: none;
+        }
+        .downloadbtn
+        {
+            width: 10%;
+            margin-left: 2%;
+        }
+        .examplebtn
+        {
+            width: 68%;
+        }
+
+    </style>
+
+    <h1 align="center">{ props.title }</h1>
+    <aside>
+    <h2>
+        <button type="button" id="chooseFile" onclick="document.getElementById('loadfile').click()">Choose File</button>
+        <input type="file" id="loadfile" name="loadfile" accept=".csv, .json" onchange={startComputation}>
+    </h2>
+    <h2>
+        <button class="examplebtn" type="button" id="loadex1" onclick=model.loadExample(1)>Load Small Example</button>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <a download="small_example.json" href="data/world_gdp.json"><button class="downloadbtn"><i class="fa fa-download"></i></button></a>
+        <button class="examplebtn" type="button" id="loadex2" onclick=model.loadExample(2)>Load Medium Example</button>
+        <a download="medium_example" href="data/cars.csv"><button class="downloadbtn"><i class="fa fa-download"></i></button></a>
+        <button class="examplebtn" type="button" id="loadex3" onclick=model.loadExample(3)>Load Large Example</button>
+        <a download="large_example.json" href="data/google_product_taxonomy.json"><button class="downloadbtn"><i class="fa fa-download"></i></button></a>
+    </h2>
+    <h2>
+        <button type="button" id="reset" onclick=view.resetViewpoint()>Reset Viewpoint</button>
+    </h2>
+    <text class="loading" id="loading">LOADING...</text>
+    </aside>
+
+    <script>
+        export default {
+            startComputation(files) {
+                model.computeVoronoi(files.target.files);
+            }
+        }
+    </script>
+
+</basicView>

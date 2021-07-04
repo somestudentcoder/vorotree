@@ -1,0 +1,14 @@
+body {
+  padding: 0;
+  height: 100%;
+}
+
+canvas {
+  border-style: solid;
+  border-color: #202020;
+  display: block;
+  border-radius: 5px;
+  max-width: 83%;
+  max-height: 89vh;
+  resize: both;
+}

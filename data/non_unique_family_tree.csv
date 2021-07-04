@@ -1,0 +1,6 @@
+id,name,parentId,weight
+1,Father,,
+2,Alice,1,
+3,Alice,1,
+4,Bob,2,10
+5,Doris,3,20
