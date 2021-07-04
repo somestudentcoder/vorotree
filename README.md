@@ -1,4 +1,4 @@
-# Interactive Voronoi Treemap #
+# VoroTree #
 
 
 Main dependencies:
