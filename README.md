@@ -19,7 +19,6 @@ Node and TypeScript should be installed globally.
 
 	$> git clone <url> <new folder>
 	$> cd <new folder>
-	$> git init
 	$> npm install
 
 
