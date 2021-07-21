@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="utf-8"> 
+    <head>
+        <title>VoroTree</title>
+        <link rel= "stylesheet" href="css/voronoi.css">
+        <div id = "header"></div>
+    </head>
+    <body>
+
+        <h1>VoroTree</h1>
+        <aside>
+        <h2>
+            <button type="button" id="chooseFile" onclick="document.getElementById('loadfile').click()">Open File</button>
+            <input type="file" id="loadfile" name="loadfile" accept=".csv, .json" onchange={startComputation}>
+        </h2>
+        <h2>
+            <button class="examplebtn" type="button" id="loadex1" onclick=model.loadExample(1)>Load Small Example</button>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <a download="small_example.json" href="data/world_gdp.json"><button class="downloadbtn"><i class="fa fa-download"></i></button></a>
+            <button class="examplebtn" type="button" id="loadex2" onclick=model.loadExample(2)>Load Medium Example</button>
+            <a download="medium_example" href="data/cars.csv"><button class="downloadbtn"><i class="fa fa-download"></i></button></a>
+            <button class="examplebtn" type="button" id="loadex3" onclick=model.loadExample(3)>Load Large Example</button>
+            <a download="large_example.json" href="data/google_product_taxonomy.json"><button class="downloadbtn"><i class="fa fa-download"></i></button></a>
+        </h2>
+        <h2>
+            <button type="button" id="reset" onclick=view.resetViewpoint()>Reset Viewpoint</button>
+        </h2>
+        <text class="loading" id="loading">LOADING...</text>
+        </aside>
+
+        <script>
+            export default {
+                startComputation(files) {
+                    model.computeVoronoi(files.target.files);
+                }
+            }
+        </script>
+
+        <canvas id="theCanvas"></canvas>
+        <script src="bundle.js"></script>
+    </body>
+</html>
