@@ -8,7 +8,6 @@ Main dependencies:
 * **Bundler**: [Webpack](https://github.com/webpack/webpack)
 * **Pixi.js**: [Pixi.js](http://www.pixijs.com/)
 * **pixi-viewport**: [pixi-viewport](https://github.com/davidfig/pixi-viewport)
-* **Riot.js**: [Riot.js](https://riot.js.org/)
 * **D3.js**: [D3.js](https://d3js.org/)
 * **Electron**: [Electron](https://www.electronjs.org/)
 
