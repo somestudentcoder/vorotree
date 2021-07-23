@@ -26,7 +26,7 @@ Node and TypeScript should be installed globally.
 
 Commands should be run under a **bash** shell.
 
-The following command builds and run the project in development mode with Hot Reload.
+The following command builds and runs the project in development mode with Hot Reload.
 
 	$> npx gulp serve
 
