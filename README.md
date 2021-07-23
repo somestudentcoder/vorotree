@@ -6,6 +6,7 @@ Main dependencies:
 * **Application Server**: [Node](https://nodejs.org/en/)
 * **Compiler**: [TypeScript](https://github.com/Microsoft/TypeScript)
 * **Bundler**: [Webpack](https://github.com/webpack/webpack)
+* **Task Runner**: [Gulp](https://gulpjs.com/)
 * **Pixi.js**: [Pixi.js](http://www.pixijs.com/)
 * **pixi-viewport**: [pixi-viewport](https://github.com/davidfig/pixi-viewport)
 * **D3.js**: [D3.js](https://d3js.org/)
@@ -27,17 +28,20 @@ Commands should be run under a **bash** shell.
 
 The following command builds and run the project in development mode with Hot Reload.
 
-	$> npm run serve
+	$> npx gulp serve
 
 The following command builds the project in production mode.
 
-	$> npm run build
+	$> npx gulp build
 
-The following command builds a desktop app in folder 'standalone'.
+The following command cleans the "dist" folder which includes the bundled source code.
 
-  ``
-  $> npm run build-electron
-  ``
+  	$> npx gulp clean
+
+The following command cleans the "dist" folder which includes the bundled source code,
+as well as the "node_modules" folder.
+
+  	$> npx gulp cleanAll
 
 For more predefined commands, see `package.json`, item `scripts`.
 
