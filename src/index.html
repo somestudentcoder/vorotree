@@ -4,12 +4,29 @@
     <head>
         <title>VoroTree</title>
         <link rel= "stylesheet" href="css/vorotree.css">
-        <div id = "header"></div>
     </head>
+
+    <header class="site-header">
+        <nav class="nav">
+            <button class="navbtn" type="button" id="chooseFile">Open File</button>
+            <input type="file" id="loadFile" name="loadfile" accept=".csv, .json">
+
+            <button class="navbtn" type="button" id="loadex1" onclick=model.loadExample(1)>Load Small Example</button>
+            <button class="navbtn" type="button" id="loadex2" onclick=model.loadExample(2)>Load Medium Example</button>
+            <button class="navbtn" type="button" id="loadex3" onclick=model.loadExample(3)>Load Large Example</button>
+
+            <button class="navbtn" type="button" id="reset" onclick=view.resetViewpoint()>Reset Viewpoint</button>
+
+            <text class="loading" id="loading">LOADING...</text>
+        </nav>
+        <div id="name">VoroTree</div>
+    </header>
 
     <body>
 
-        <h1>VoroTree</h1>
+        
+
+        <!-- <h1>VoroTree</h1>
         <aside>
         <h2>
             <button type="button" id="chooseFile">Open File</button>
@@ -28,7 +45,7 @@
             <button type="button" id="reset" onclick=view.resetViewpoint()>Reset Viewpoint</button>
         </h2>
         <text class="loading" id="loading">LOADING...</text>
-        </aside>
+        </aside> -->
 
         <canvas id="theCanvas"></canvas>
         <script src="bundle.js"></script>

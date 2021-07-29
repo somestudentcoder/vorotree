@@ -1,34 +1,78 @@
-body {
-  padding: 0;
-  height: 100%;
-}
-
-canvas {
-  border-style: solid;
-  border-color: #202020;
-  display: block;
-  border-radius: 5px;
-  max-width: 83%;
-  max-height: 89vh;
-  resize: both;
-}
-
-h1 {
-  font-family: Trebuchet MS;
-  font-size: 5vh;
-  padding: 1vh 1vh 1vh 1vh;
-  color: white;
-  background-color: #202020;
-  border-radius: 5px;
-  margin-bottom: .6vh;
-  margin-right: .6vw;
-  margin-left: .3vw;
-  margin-top: .6vh;
-  text-align: center;
-}
 input {
   display:none
 }
+
+#name {
+  font-family: Futura,Trebuchet MS,Arial,sans-serif;
+  font-variant: small-caps;
+  font-size: large;
+  font-weight: 700;
+  color: black;
+  float: right;
+  display: block;
+  padding-top: 1.5vh;
+  padding-bottom: 1.5vh;
+}
+
+.nav{
+  float: left;
+  display: block;
+}
+
+.site-header{
+  padding-left: 1vw;
+  padding-right: 1vw;
+  padding-top: 0;
+  background: aquamarine;
+  display: block;
+  overflow: hidden;
+  margin-left: 0;
+}
+
+canvas {
+  display: block;
+  max-width: 100%;
+  max-height: 93.5vh;
+  resize: both;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navbtn {
+  font-family: Futura,Trebuchet MS,Arial,sans-serif;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  border: none;
+  background: none;
+}
+
+.navbtn:hover {
+  background-color: #b3ffe6;
+}
+
+.navbtn:active {
+  position:relative;
+  top:1px;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+
+.loading
+{
+  display: none;
+}
+
+/* 
+
+
+
+
+
 text {
   display: inline-block;
   font-family: Trebuchet MS;
@@ -89,4 +133,4 @@ aside {
 .examplebtn
 {
   width: 68%;
-}
+} */
