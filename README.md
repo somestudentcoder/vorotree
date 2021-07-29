@@ -36,12 +36,12 @@ The following command builds the project in production mode.
 
 The following command cleans the "dist" folder which includes the bundled source code.
 
-  $> npx gulp clean
+  	$> npx gulp clean
 
 The following command cleans the "dist" folder which includes the bundled source code,
 as well as the "node_modules" folder.
 
-  $> npx gulp cleanAll
+  	$> npx gulp cleanAll
 
 For more predefined commands, see `package.json`, item `scripts`.
 
