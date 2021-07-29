@@ -12,10 +12,6 @@ export class Model{
   public current_root_polygon: Polygon = {} as Polygon;
 
 
-  constructor()
-  {
-  }
-
   loadExample(ex: number) {
     this.refresh();
     view.displayLoading(true);

@@ -29,7 +29,7 @@ const config = {
         new CopyPlugin(
         {   patterns:[
                 { from: 'src/index.html' },
-                { from: 'src/css/voronoi.css', to: 'css/' },
+                { from: 'src/css/vorotree.css', to: 'css/' },
                 { from: 'data/world_gdp.json', to: 'data/'},
                 { from: 'data/cars.csv', to: 'data/'},
                 { from: 'data/google_product_taxonomy.json', to:'data/'}

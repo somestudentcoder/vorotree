@@ -4,7 +4,14 @@ import * as PIXI from 'pixi.js';
 
 export class Controller{
 
- private view = window.view;
+  private view = window.view;
+
+  constructor()
+  {
+    const actualInput = <HTMLInputElement>document.getElementById("loadFile");
+    actualInput.addEventListener("change", function(){model.computeVoronoi(actualInput.files);})
+    document.getElementById("chooseFile")?.addEventListener("click", function(){actualInput.click();})
+  }
  
   polgyonClick(x: number, y:number)
   {
@@ -59,6 +66,11 @@ export class Controller{
     let y_ratio = (ymax - ymin) / view.viewport.worldScreenHeight;
     let larger_ratio = x_ratio >= y_ratio ? x_ratio : y_ratio;
     return larger_ratio;
+  }
+
+  loadFile(files: any) {
+    console.log("we here");
+    model.computeVoronoi(files.target.files);
   }
 
 }
