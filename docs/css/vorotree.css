@@ -1,0 +1,99 @@
+input {
+  display:none
+}
+
+#name {
+  font-family: Futura,Trebuchet MS,Arial,sans-serif;
+  font-variant: small-caps;
+  font-size: large;
+  font-weight: 700;
+  color: black;
+  float: right;
+  display: block;
+  padding-top: 1.5vh;
+  padding-bottom: 1.5vh;
+}
+
+.nav{
+  float: left;
+  display: block;
+}
+
+header{
+  padding-left: 1vw;
+  padding-right: 1vw;
+  padding-top: 0;
+  background: aquamarine;
+  display: block;
+  overflow: visible;
+  margin-left: 0;
+  height:5.7vh;
+}
+
+canvas {
+  display: block;
+  max-width: 100%;
+  max-height: 93.5vh;
+  resize: both;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navbtn {
+  font-family: Futura,Trebuchet MS,Arial,sans-serif;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.navbtn:hover {
+  background-color: #b3ffe6;
+}
+
+.navbtn:active {
+  position:relative;
+  top:1px;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+
+.loading
+{
+  display: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #b3ffe6;
+  min-width: 10vw;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  font-family: Futura,Trebuchet MS,Arial,sans-serif;
+  font-size: 14px;
+  color: black;
+  padding: 1vh 1vw 1vh 1vw;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ccffee}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}

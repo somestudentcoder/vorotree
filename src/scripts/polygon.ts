@@ -7,12 +7,12 @@ export class Polygon extends PIXI.Graphics{
   public points: Array<Point> = [];
   public polygon_children: Array<Polygon> = [];
   public polygon_parent: Polygon = {} as Polygon;
-  public color: number = -1;
+  public color: number[] = [-1, -1, -1];
   public id: number = -1;
   public weight: number = -1;
   public name: string = "";
 
-  static from(d3_poly: Delaunay.Polygon, center_: Point, parent_?: Polygon, color_?: number){
+  static from(d3_poly: Delaunay.Polygon, center_: Point, parent_?: Polygon, color_?: number[]){
     let poly = new Polygon();
     let ps = [];
     for(let point of d3_poly){
@@ -24,7 +24,7 @@ export class Polygon extends PIXI.Graphics{
       ps.push(ps[0]);
     }
     poly.points = ps;
-    poly.color = color_ == undefined ? view.getColor() : color_;
+    poly.color = color_!;// == undefined ? color_ : color_;
     poly.id = model.currentPolygonID;
     model.currentPolygonID++;
     poly.polygon_parent = parent_ == undefined ?  {} as Polygon : parent_;
@@ -35,7 +35,7 @@ export class Polygon extends PIXI.Graphics{
   init(points_: Array<Point>, colorIndex: number)
   {
     this.points = points_;
-    this.color = view.getColor();
+    //this.color = view.getColor();
     this.id = model.currentPolygonID;
     model.currentPolygonID++;
   }

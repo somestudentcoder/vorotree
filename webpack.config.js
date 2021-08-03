@@ -1,5 +1,3 @@
-//https://github.com/yahiko00/PixiProject
-
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -29,7 +27,8 @@ const config = {
         new CopyPlugin(
         {   patterns:[
                 { from: 'src/index.html' },
-                { from: 'src/css/voronoi.css', to: 'css/' },
+                { from: 'src/favicon.ico' },
+                { from: 'src/css/vorotree.css', to: 'css/' },
                 { from: 'data/world_gdp.json', to: 'data/'},
                 { from: 'data/cars.csv', to: 'data/'},
                 { from: 'data/google_product_taxonomy.json', to:'data/'}
