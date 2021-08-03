@@ -19,14 +19,15 @@ input {
   display: block;
 }
 
-.site-header{
+header{
   padding-left: 1vw;
   padding-right: 1vw;
   padding-top: 0;
   background: aquamarine;
   display: block;
-  overflow: hidden;
+  overflow: visible;
   margin-left: 0;
+  height:5.7vh;
 }
 
 canvas {
@@ -45,6 +46,7 @@ canvas {
   padding-bottom: 2vh;
   border: none;
   background: none;
+  cursor: pointer;
 }
 
 .navbtn:hover {
@@ -67,70 +69,31 @@ body {
   display: none;
 }
 
-/* 
-
-
-
-
-
-text {
-  display: inline-block;
-  font-family: Trebuchet MS;
-  font-size: 1.5vh;
-}
-button {
-  font-family: Trebuchet MS;
-  margin-bottom: 1vh;
-  width: 80%;
-  overflow: auto;
-
-  box-shadow:inset 0px 1px 0px 0px #ffffff;
-  background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
-  background-color:#ffffff;
-  border-radius:6px;
-  border:1px solid #dcdcdc;
-  display:inline-block;
-  cursor:pointer;
-  color:#000000;
-  font-size:1.5vh;
-  font-weight:bold;
-  padding:0.5vh 0.5vh;
-  text-decoration:none;
-  text-shadow:0px 1px 0px #ffffff;
-}
-button:hover {
-  background:linear-gradient(to bottom, #ffffff 30%, #a6a49f 100%);
-  background-color:#f6f6f6;
-}
-button:active {
-  position:relative;
-  top:1px;
-}
-aside {
-  width: 15vw;
-  float: left;
-  font-family: Trebuchet MS;
-  background-color: #202020;
-  color:white;
-  margin-right: .3vw;
-  border-radius:5px;
-  margin-left: .3vw;
-  overflow: auto;
-  height: 90vh;
+.dropdown {
   position: relative;
-  text-align: center;
+  display: inline-block;
 }
-.loading
-{
-  font-size: 3vh;
+
+.dropdown-content {
   display: none;
+  position: absolute;
+  background-color: #b3ffe6;
+  min-width: 10vw;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
 }
-.downloadbtn
-{
-  width: 10%;
-  margin-left: 2%;
+
+.dropdown-content a {
+  font-family: Futura,Trebuchet MS,Arial,sans-serif;
+  font-size: 14px;
+  color: black;
+  padding: 1vh 1vw 1vh 1vw;
+  text-decoration: none;
+  display: block;
 }
-.examplebtn
-{
-  width: 68%;
-} */
+
+.dropdown-content a:hover {background-color: #ccffee}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}

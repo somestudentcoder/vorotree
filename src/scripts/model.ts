@@ -85,11 +85,25 @@ export class Model{
     for(let node of rootNode.children){
       let poly = this.getPolygon(node);
 
-      let x_scale = chroma.scale(['red', 'orange', 'yellow', 'green', 'turquoise', 'blue', 'purple']);
+      let x_scale = chroma.scale(['#80ff80', '#80ff9f', '#80ffbf', '#7fffd4', '#80ffdf', '#80ffff', '#80dfff', '#80bfff']);
       let y_scale = chroma.scale(['#000000', '#7d7d7d']);
       let c1 = x_scale(poly.site.x / view.width);
       let c2 = y_scale(poly.site.y / view.height);
-      let color = chroma.mix(c1, c2).num()
+      let color1 = chroma.mix(c1, c2).num()
+
+      x_scale = chroma.scale(['red', 'orange', 'yellow', 'green', 'turquoise', 'blue', 'purple']);
+      y_scale = chroma.scale(['#000000', '#7d7d7d']);
+      c1 = x_scale(poly.site.x / view.width);
+      c2 = y_scale(poly.site.y / view.height);
+      let color2 = chroma.mix(c1, c2).num()
+
+      x_scale = chroma.scale(['#e6e6e6', '#cccccc', '#b3b3b3', '#999999', '#808080', '#737373', '#595959']);
+      y_scale = chroma.scale(['#000000', '#7d7d7d']);
+      c1 = x_scale(poly.site.x / view.width);
+      c2 = y_scale(poly.site.y / view.height);
+      let color3 = chroma.mix(c1, c2).num()
+
+      let color = [color1, color2, color3]
 
       let new_poly = Polygon.from(poly, poly.site, rootPolygon, color);
       new_poly.polygon_parent = rootPolygon;

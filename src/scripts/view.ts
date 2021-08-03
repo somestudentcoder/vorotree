@@ -26,6 +26,8 @@ export class View{
 
   public viewport: Viewport;
 
+  public color_selector: number = 0;
+
 
 
   constructor()
@@ -104,7 +106,7 @@ export class View{
 
       shape.clear();
 
-      shape.beginFill(shape.color);
+      shape.beginFill(shape.color[this.color_selector]);
       shape.lineStyle(3 * this.zoom_factor,0,1,0,false);
       shape.drawPolygon(coord_list);
       shape.endFill();
@@ -201,30 +203,10 @@ export class View{
     this.app.renderer.render(this.stage);
   }
 
-  initColorArray(points:number)
+  setColorScheme(selector: number)
   {
-    this.colorArray = [];
-    
-    let counter = 0
-    while(counter < points)
-    {
-      let color = Math.floor(Math.random() * 16777215);
-      if(this.colorArray.includes(color))
-      {
-        continue;
-      }
-      else{
-        this.colorArray.push(color);
-        counter++;
-      }
-    }
-  }
-
-  getColor()
-  {
-    let color = this.colorArray[this.color_counter];
-    this.color_counter++;
-    return color;
+    this.color_selector = selector-1;
+    this.showTreemap(this.model.current_root_polygon);
   }
 
   resetViewItems()
