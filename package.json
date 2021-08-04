@@ -6,9 +6,9 @@
   "main": "src/main.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
+    "electron": "electron .",
     "build-electron": "electron-packager . --out ./standalone --overwrite",
-    "serve": "webpack serve",
-    "start": "electron src/main.js"
+    "serve": "webpack serve"
   },
   "repository": {
     "type": "git"
@@ -21,6 +21,8 @@
     "@types/d3-hierarchy": "^1.1.7",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "copy-webpack-plugin": "^9.0.1",
+    "electron": "^13.1.8",
+    "electron-packager": "^15.3.0",
     "gulp": "^4.0.2",
     "gulp-cli": "^2.3.0",
     "ts-loader": "^9.2.3",
@@ -39,8 +41,6 @@
     "d3-hierarchy": "^1.1.9",
     "d3-voronoi-treemap": "^1.1.1",
     "d3-weighted-voronoi": "^1.1.1",
-    "electron": "^9.4.3",
-    "electron-packager": "^15.2.0",
     "pixi-viewport": "^4.18.1",
     "pixi.js": "^5.3.7"
   }

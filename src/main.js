@@ -9,7 +9,7 @@ let window;
 
 function createWindow () {
     window = new BrowserWindow({width: 1200, height: 1200});
-    window.loadURL('file://' + __dirname + '/electron_index.html');
+    window.loadURL('file://' + __dirname + '/dist/index.html');
 }
 
 app.on('ready', createWindow);

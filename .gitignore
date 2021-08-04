@@ -3,6 +3,7 @@
 debug/
 dist/
 node_modules/
+standalone
 .idea
 .DS_Store
 .vscode

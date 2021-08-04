@@ -34,16 +34,23 @@ The following command builds the project in production mode.
 
 	$> npx gulp build
 
+The following command runs the project as an Electron application.
+
+	$> npx gulp electron
+
+The following command compiles a standalone Electron application for the operating system it was called on.
+You can find the output under /standalone in the project directory.
+
+	$> npx gulp buildElectronApp
+
 The following command cleans the "dist" folder which includes the bundled source code.
 
-  	$> npx gulp clean
+	$> npx gulp clean
 
 The following command cleans the "dist" folder which includes the bundled source code,
 as well as the "node_modules" folder.
 
-  	$> npx gulp cleanAll
-
-For more predefined commands, see `package.json`, item `scripts`.
+	$> npx gulp cleanAll
 
 
 ## Data Model ##
