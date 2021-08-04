@@ -4,6 +4,8 @@ const webpackDevServer = require('webpack-dev-server');
 const webpackConfig = require('./webpack.config.js');
 const del = require('del');
 
+var exec = require ('child_process').exec;
+
 // Build/Serve
 
 function build(cb) {
@@ -29,6 +31,22 @@ function serve(cb){
             if(err) throw new gutil.PluginError("webpack-dev-server", err);
           });
     })
+}
+
+function runElectron(cb){
+    exec('electron .', function (err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        cb(err);
+      });
+}
+
+function buildElectron(cb){
+    exec('electron-packager . --out ./standalone --overwrite', function (err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        cb(err);
+      });
 }
 
 
@@ -57,5 +75,7 @@ function cleanNodeModules() {
 
 exports.build = build;
 exports.serve = serve;
+exports.electron = gulp.series([build, runElectron]);
+exports.buildElectronApp = gulp.series([build, buildElectron]);
 exports.clean = cleanDist;
 exports.cleanAll = gulp.series([cleanDist, cleanNodeModules]);
