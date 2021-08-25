@@ -52,6 +52,19 @@ as well as the "node_modules" folder.
 
 	$> npx gulp cleanAll
 
+## Included Data ##
+
+Three datasets are included in the VoroTree application for demonstration purposes.
+
+- **1** Highly edited version of [Country, Regional and World GDP (Gross Domestic Product)](https://datahub.io/core/gdp) dataset. 
+Only some countries were selected to produce a smaller dataset for demonstration purposes.
+
+- **2** Custom car manufacturer dataset constructed by the author. It spans over a selection of car manufacturers divided by
+country of origin and select models of the brand.
+
+- **3** [Google product taxonomy](https://www.google.com/basepages/producttype/taxonomy.en-US.txt) - the list of categories used
+by Google to help departmentalize products in a shopping feed.
+
 
 ## Data Model ##
 
