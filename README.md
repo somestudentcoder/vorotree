@@ -135,7 +135,7 @@ The tool supports JSON and CSV files which need to have the following format in 
 
 ### CSV Examples ###
 
-To create a Voronoi Treemap from a CSV file, the columns **name** and **parent** are required. The **weight** is optional as described above. 
+To create a Voronoi Treemap from a CSV file, the columns **name** and **parent** are required. The **weight** is optional as described above.
 
 ```csv
  name,parent,weight
