@@ -53,22 +53,30 @@ You can find the output under /standalone in the project directory.
 The following command compiles a standalone Electron application for Microsoft Windows x64.
 You can find the output under /standalone in the project directory.
 
+  ```bash
 	$> npx gulp buildElectronWinApp
+  ```
 
 The following command compiles a standalone Electron application for MacOS.
 You can find the output under /standalone in the project directory.
 
+  ```bash
 	$> npx gulp buildElectronMacApp
+  ```
 
 The following command compiles a standalone Electron application for Linux operating systems.
 You can find the output under /standalone in the project directory.
 
+  ```bash
 	$> npx gulp buildElectronLinuxApp
+  ```
 
 The following command compiles standalone Electron applications for all available platforms.
 You can find the output under /standalone in the project directory.
 
+  ```bash
 	$> npx gulp buildElectronAllApps
+  ```
 
 The following command cleans the "dist" folder which includes the bundled source code.
 
