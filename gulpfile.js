@@ -49,6 +49,30 @@ function buildElectron(cb){
       });
 }
 
+function buildElectronWin(cb){
+    exec('electron-packager . --out ./standalone --overwrite --platform "win32"', function (err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        cb(err);
+      });
+}
+
+function buildElectronMac(cb){
+    exec('electron-packager . --out ./standalone --overwrite --platform "darwin"', function (err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        cb(err);
+      });
+}
+
+function buildElectronLinux(cb){
+    exec('electron-packager . --out ./standalone --overwrite --platform "linux"', function (err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        cb(err);
+      });
+}
+
 
 
 // Environmental Variables
@@ -77,5 +101,9 @@ exports.build = build;
 exports.serve = serve;
 exports.electron = gulp.series([build, runElectron]);
 exports.buildElectronApp = gulp.series([build, buildElectron]);
+exports.buildElectronWinApp = gulp.series([build, buildElectronWin]);
+exports.buildElectronMacApp = gulp.series([build, buildElectronMac]);
+exports.buildElectronLinuxApp = gulp.series([build, buildElectronLinux]);
+exports.buildElectronAllApps = gulp.series([build, buildElectronWin, buildElectronMac, buildElectronLinux]);
 exports.clean = cleanDist;
 exports.cleanAll = gulp.series([cleanDist, cleanNodeModules]);
