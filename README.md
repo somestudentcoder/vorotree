@@ -98,17 +98,13 @@ repository or with an index.html within a "docs" folder in your repository. In t
 using a "docs" folder was chosen to avoid unnecessary or unwanted inclusion of updates to the hosted version
 of VoroTree. To deploy a new version of VoroTree to the repository follow these steps:
 
-1. Build the most recent version of the project locally via:
+1. Run the deploy gulp command to build the project and place all necessary files in the apporpriate folder:
 
   ```bash
-  $> npx gulp build
+  $> npx gulp deploy
   ```
 
-2. Navigate to the /src/dist folder from the root of the repository.
-
-3. Copy all files from /src/dist to the /docs folder.
-
-4. Add and push all changes in the /docs folder to the git repository. Once these changes enter the "main/master" branch, Github Pages
+2. Add and push all changes in the /docs folder to the git repository. Once these changes enter the "main/master" branch, Github Pages
 will automatically update the sourcecode of the hosted page.
 
 ## Included Data ##

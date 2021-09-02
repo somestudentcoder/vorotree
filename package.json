@@ -21,6 +21,7 @@
     "@types/d3-hierarchy": "^1.1.7",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "copy-webpack-plugin": "^9.0.1",
+    "copyfiles": "^2.4.1",
     "electron": "^13.1.8",
     "electron-packager": "^15.3.0",
     "gulp": "^4.0.2",
