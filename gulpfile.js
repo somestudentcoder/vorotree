@@ -96,6 +96,16 @@ function cleanNodeModules() {
     return del('node_modules/**', { force: true });
 }
 
+// Deploy
+function deployVoroTree(cb)
+{
+    exec('npx copyfiles -u 2 src/dist/* src/dist/data/* src/dist/css/* docs/', function (err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        cb(err);
+      });
+}
+
 
 exports.build = build;
 exports.serve = serve;
@@ -107,3 +117,4 @@ exports.buildElectronLinuxApp = gulp.series([build, buildElectronLinux]);
 exports.buildElectronAllApps = gulp.series([build, buildElectronWin, buildElectronMac, buildElectronLinux]);
 exports.clean = cleanDist;
 exports.cleanAll = gulp.series([cleanDist, cleanNodeModules]);
+exports.deploy = gulp.series([build, deployVoroTree]);
