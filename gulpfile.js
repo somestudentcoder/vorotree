@@ -109,6 +109,7 @@ function deployVoroTree(cb)
 
 exports.build = build;
 exports.serve = serve;
+exports.default = serve;
 exports.electron = gulp.series([build, runElectron]);
 exports.buildElectronApp = gulp.series([build, buildElectron]);
 exports.buildElectronWinApp = gulp.series([build, buildElectronWin]);

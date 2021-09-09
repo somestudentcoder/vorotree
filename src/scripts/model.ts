@@ -10,6 +10,8 @@ export class Model{
   public currentPolygonID: number = 0;
   public root_polygon: Polygon = {} as Polygon;
   public current_root_polygon: Polygon = {} as Polygon;
+  public lastFileRead: any;
+  public fileReloadSelector: number = -1;
 
 
   loadExample(ex: number) {
@@ -21,11 +23,12 @@ export class Model{
         .then((jsonData) => {
           let root = hierarchy(jsonData);
           this.createTreemap(root);
+          this.fileReloadSelector = 1;
         })
         .then(() => {
           view.displayLoading(false);
         }).catch(() => {
-          window.alert("Could not load small Example.");
+          window.alert("Could not load GDP example.");
         });
     }
     else if (ex == 2) {
@@ -36,24 +39,72 @@ export class Model{
             .parentId(function (d:any = {}) { return d.parent; })
             (csvData);
           this.createTreemap(root);
+          this.fileReloadSelector = 2;
         })
         .then(() => {
           view.displayLoading(false);
         }).catch(() => {
-          window.alert("Could not load medium Example.");
+          window.alert("Could not load Car example.");
         });
     }
     else if (ex == 3) {
+      json('data/primates.json')
+        .then((jsonData) => {
+            let root = hierarchy(jsonData);
+            this.assignWeights(root.leaves());
+            this.createTreemap(root);
+            this.fileReloadSelector = 3;
+        })
+        .then(() => {
+          view.displayLoading(false);
+        }).catch(() => {
+          window.alert("Could not load Primate example.");
+        });
+    }
+    else if (ex == 4) {
+      csv('data/drugs.csv')
+        .then((csvData) => {
+          let root = stratify()
+            .id(function (d:any = {}) { return d.name; })
+            .parentId(function (d:any = {}) { return d.parent; })
+            (csvData);
+          this.createTreemap(root);
+          this.fileReloadSelector = 4;
+        })
+        .then(() => {
+          view.displayLoading(false);
+        }).catch(() => {
+          window.alert("Could not load drug example.");
+        });
+    }
+    else if (ex == 5) {
+      csv('data/geoeditors.csv')
+        .then((csvData) => {
+          let root = stratify()
+            .id(function (d:any = {}) { return d.name; })
+            .parentId(function (d:any = {}) { return d.parent; })
+            (csvData);
+          this.createTreemap(root);
+          this.fileReloadSelector = 5;
+        })
+        .then(() => {
+          view.displayLoading(false);
+        }).catch(() => {
+          window.alert("Could not load Wikipedia example.");
+        });
+    }
+    else if (ex == 6) {
       json('data/google_product_taxonomy.json')
         .then((jsonData) => {
             let root = hierarchy(jsonData);
             this.assignWeights(root.leaves());
             this.createTreemap(root);
+            this.fileReloadSelector = 6;
         })
         .then(() => {
           view.displayLoading(false);
         }).catch(() => {
-          window.alert("Could not load large Example.");
+          window.alert("Could not load Google Taxonomy example.");
         });
     }
   }
@@ -69,7 +120,6 @@ export class Model{
     for(let leaf of rootNode.leaves()){
       leaf.data['weight'] = (leaf.data['weight'] * 100) / sum;
     }
-    //view.initColorArray(rootNode.children.length+1);
     let polygon = this.getPolygon(rootNode);
     this.root_polygon = Polygon.from(polygon, polygon.site);
     this.root_polygon.center = new Point(view.width / 2, view.height / 2);
@@ -170,7 +220,8 @@ export class Model{
   computeVoronoi(files: any)
   {
     this.refresh();
-    view.displayLoading(true);
+    this.lastFileRead = files;
+    this.fileReloadSelector = 0;
 
     let reader = new FileReader();
 
@@ -195,17 +246,21 @@ export class Model{
     };
 
     reader.readAsText(files[0]);
+
+    // view.displayLoading(false);
   }
 
-  createTreemap(root: HierarchyNode<any>) {
+  async createTreemap(root: HierarchyNode<any>) {
+    view.displayLoading(true);
     root.sum(function (d: any = {}) {
       return d.weight;
     });
 
-    let voronoitreemap = voronoiTreemap().clip([[0, 0], [0, view.height], [view.width, view.height], [view.width, 0]]);
-    voronoitreemap(root);
+    let voronoitreemap = await voronoiTreemap().clip([[0, 0], [0, view.height], [view.width, view.height], [view.width, 0]]);
+    await voronoitreemap(root);
     this.createRootPolygon(root);
     view.showTreemap(this.root_polygon)
+    view.displayLoading(false);
   }
   
   refresh() {
@@ -261,6 +316,33 @@ export class Model{
   parseJson(fileContent: any) {
     let parsingRes = JSON.parse(fileContent);
     return hierarchy(parsingRes);
+  }
+
+  loadLastData(){
+    switch(this.fileReloadSelector)
+    {
+      case 0:
+        this.computeVoronoi(this.lastFileRead);
+        break;
+      case 1:
+        this.loadExample(this.fileReloadSelector);
+        break;
+      case 2:
+        this.loadExample(this.fileReloadSelector);
+        break;
+      case 3:
+        this.loadExample(this.fileReloadSelector);
+        break;
+      case 4:
+        this.loadExample(this.fileReloadSelector);
+        break;
+      case 5:
+        this.loadExample(this.fileReloadSelector);
+        break;
+      case 6:
+        this.loadExample(this.fileReloadSelector);
+        break;
+    }
   }
 
 

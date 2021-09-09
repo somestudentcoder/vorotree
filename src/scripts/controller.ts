@@ -9,7 +9,9 @@ export class Controller{
   constructor()
   {
     const actualInput = <HTMLInputElement>document.getElementById("loadFile");
-    actualInput.addEventListener("change", function(){model.computeVoronoi(actualInput.files);})
+    actualInput.addEventListener("change", function(){
+      model.computeVoronoi(actualInput.files);
+    })
     document.getElementById("chooseFile")?.addEventListener("click", function(){actualInput.click();})
   }
  
@@ -67,10 +69,4 @@ export class Controller{
     let larger_ratio = x_ratio >= y_ratio ? x_ratio : y_ratio;
     return larger_ratio;
   }
-
-  loadFile(files: any) {
-    console.log("we here");
-    model.computeVoronoi(files.target.files);
-  }
-
 }

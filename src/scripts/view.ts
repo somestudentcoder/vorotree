@@ -10,12 +10,9 @@ export class View{
 
   //public renderer: PIXI.Renderer;
   public app: PIXI.Application;
-  public stage: PIXI.Container;
   public width: number;
   public height: number;
 
-  private color_counter: number;
-  private colorArray: Array<number>;
   private model = window.model;
   private controller = window.controller;
   private text_list: Array<PIXI.Text>;
@@ -36,15 +33,16 @@ export class View{
     this.width = window.innerWidth;
     this.height = window.innerHeight;
     this.app = new PIXI.Application({width: this.width, height: this.height, resolution: window.devicePixelRatio,
-      autoDensity: true, view: <HTMLCanvasElement>document.getElementById("theCanvas"), backgroundColor: 0xFFFFFF});
+      autoDensity: true, view: <HTMLCanvasElement>document.getElementById("theCanvas"), backgroundColor: 0xFFFFFF, resizeTo: window});
     document.body.appendChild(this.app.view)
-    //window.addEventListener('resize', this.resize);
+
+    var timer: NodeJS.Timeout;
+    window.addEventListener('resize', function(){
+      clearTimeout(timer);
+      timer = setTimeout(view.resize, 500);
+    });
 
     //init stage & text containers
-    this.stage = new PIXI.Container();
-
-    this.colorArray =[];
-    this.color_counter = 0;
     this.viewport = new Viewport(
       {
         screenWidth: this.width,
@@ -74,24 +72,6 @@ export class View{
 
     this.app.renderer.render(this.app.stage);
   }
-
-  // Not used. Served as starting point.
-  /*
-  drawPoints(list: Array<Point>)
-  {
-    for(let p of list)
-    {
-      let dot = new PIXI.Graphics();
-      dot.beginFill(0xff00ff);
-      dot.x = 0;
-      dot.y = 0;
-      this.stage.addChild(dot);
-      dot.drawCircle(p.x, p.y, 5);
-      dot.endFill();
-    }
-    this.app.renderer.render(this.stage);
-  }
-  */
  
   drawPolygons(list: Array<Polygon>, upper: boolean)
   {
@@ -176,7 +156,6 @@ export class View{
         this.text_list.push(text);
         this.viewport.addChild(text);
       }
-      this.app.renderer.render(this.stage);
     }
   }
 
@@ -192,15 +171,12 @@ export class View{
   //POSSIBILITY FOR LATER https://stackoverflow.com/questions/30554533/dynamically-resize-the-pixi-stage-and-its-contents-on-window-resize-and-window
   resize()
   {
-    let w = this.app.renderer.width;
-    let h = this.app.renderer.height;
+    view.app.resize();
+    view.height = view.app.view.height
+    view.width = view.app.view.width
+    view.viewport.resize(view.app.view.width, view.app.view.height, view.app.view.width, view.app.view.height);
 
-    let _w = window.innerWidth * 0.95;
-    let _h = window.innerHeight * 0.95;
-
-    this.app.renderer.resize(_w, _h);
-    //shape.scale.set(w/_w, h/_h);
-    this.app.renderer.render(this.stage);
+    model.loadLastData();
   }
 
   setColorScheme(selector: number)
@@ -211,7 +187,6 @@ export class View{
 
   resetViewItems()
   {
-    this.color_counter = 0;
     this.active_shapes = [];
     this.text_list = [];
     this.zoom_factor = 1;
@@ -220,14 +195,14 @@ export class View{
 
   resetViewpoint()
   {
-    this.model.current_root_polygon = this.model.root_polygon;
-    this.active_shapes = [];
-    this.text_list = [];
-    this.viewport.setZoom(1);
-    this.zoom_factor = 1;
+    view.model.current_root_polygon = model.root_polygon;
+    view.active_shapes = [];
+    view.text_list = [];
+    view.viewport.setZoom(1);
+    view.zoom_factor = 1;
     view.viewport.removeChildren();
     view.app.renderer.render(view.app.stage);
-    this.showTreemap(model.root_polygon)
+    view.showTreemap(model.root_polygon)
   }
 
   showTreemap(root: Polygon){
@@ -268,6 +243,7 @@ export class View{
       this.drawRootLines();      
     }
     this.drawText(root);
+    this.app.renderer.render(this.app.stage)
     this.displayLoading(false)
   }
 
@@ -290,6 +266,8 @@ export class View{
 
   displayLoading(b: boolean)
   {
+    console.log('displaying loading')
+    console.log(b)
     let loading: HTMLElement = document.getElementById('loading')!;
     if(b)
     {

@@ -31,7 +31,10 @@ const config = {
                 { from: 'src/css/vorotree.css', to: 'css/' },
                 { from: 'data/world_gdp.json', to: 'data/'},
                 { from: 'data/cars.csv', to: 'data/'},
-                { from: 'data/google_product_taxonomy.json', to:'data/'}
+                { from: 'data/google_product_taxonomy.json', to:'data/'},
+                { from: 'data/drugs.csv', to: 'data/'},
+                { from: 'data/primates.json', to:'data/'},
+                { from: 'data/geoeditors.csv', to: 'data/'},
             ]
         }),
     ],
