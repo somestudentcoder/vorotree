@@ -175,6 +175,7 @@ export class View{
     view.height = view.app.view.height
     view.width = view.app.view.width
     view.viewport.resize(view.app.view.width, view.app.view.height, view.app.view.width, view.app.view.height);
+    view.resetViewItems();
 
     model.loadLastData();
   }

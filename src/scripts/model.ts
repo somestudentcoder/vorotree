@@ -68,6 +68,7 @@ export class Model{
             .id(function (d:any = {}) { return d.name; })
             .parentId(function (d:any = {}) { return d.parent; })
             (csvData);
+          this.assignWeights(root.leaves());
           this.createTreemap(root);
           this.fileReloadSelector = 4;
         })
