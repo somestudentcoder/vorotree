@@ -19,25 +19,17 @@ input {
   display: block;
 }
 
-header{
+header {
   padding-left: 1vw;
   padding-right: 1vw;
   padding-top: 0;
   background: aquamarine;
-  display: block;
-  overflow: visible;
-  margin-left: 0;
-  height:5.7vh;
+  overflow: hidden;
 }
 
 canvas {
-  display: block;
-  max-width: 100%;
+  /* max-width: 100%; */
   max-height: 93.5vh;
-  resize: both;
-
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .navbtn {
@@ -47,6 +39,7 @@ canvas {
   border: none;
   background: none;
   cursor: pointer;
+  display: inline-block;
 }
 
 .navbtn:hover {
@@ -70,7 +63,6 @@ body {
 }
 
 .dropdown {
-  position: relative;
   display: inline-block;
 }
 
@@ -90,6 +82,7 @@ body {
   padding: 1vh 1vw 1vh 1vw;
   text-decoration: none;
   display: block;
+  text-align: left;
 }
 
 .dropdown-content a:hover {background-color: #ccffee}
