@@ -5,6 +5,7 @@ import {csv, json} from "d3-fetch";
 import { voronoiTreemap } from "d3-voronoi-treemap";
 import {csvParse} from "d3-dsv";
 import chroma = require('chroma-js');
+import dirTree = require('directory-tree');
 
 export class Model{
   public currentPolygonID: number = 0;
@@ -317,6 +318,22 @@ export class Model{
   parseJson(fileContent: any) {
     let parsingRes = JSON.parse(fileContent);
     return hierarchy(parsingRes);
+  }
+
+  constructTreeFromFileSystem(path: string){
+    //const constructedTree: dirTree.DirectoryTree = {} as dirTree.DirectoryTree;
+    console.log("handling:", path)
+
+    const constructedTree = dirTree(path);
+    console.log(constructedTree);
+
+    try {
+      
+    } catch (error) {
+     console.error(error);
+     console.log("Probably you entered an invalid path.")
+     return;
+    }
   }
 
   loadLastData(){

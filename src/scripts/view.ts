@@ -123,7 +123,7 @@ export class View{
   }
 
 
-  drawText(root: Polygon)
+  drawLabels(root: Polygon)
   {
     //cleanup
     for(let text of this.text_list)
@@ -138,7 +138,9 @@ export class View{
     {
       for(let polygon of root.polygon_children)
       {
-        let text = new PIXI.Text(polygon.name, {fill: 0xffffff,  stroke: 0x000000, strokeThickness: (0.5 + this.zoom_factor*2), fontSize: Math.floor((20 + polygon.weight * 2)* this.zoom_factor) +3});
+        let font_size = 1 + polygon.width / 11;
+        console.log(font_size)
+        let text = new PIXI.Text(polygon.name, {fill: 0xffffff,  stroke: 0x000000, strokeThickness: (0.5 + this.zoom_factor*1.5), fontSize: font_size});
         text.anchor.set(0.5);
         text.resolution = 2 * (1/this.zoom_factor);
         text.position.set(polygon.center.x, polygon.center.y);
@@ -243,7 +245,7 @@ export class View{
     {
       this.drawRootLines();      
     }
-    this.drawText(root);
+    this.drawLabels(root);
     this.app.renderer.render(this.app.stage)
     this.displayLoading(false)
   }

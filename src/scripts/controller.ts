@@ -12,6 +12,12 @@ export class Controller{
     actualInput.addEventListener("change", function(){
       model.computeVoronoi(actualInput.files);
     })
+
+    // const folderSelector = <HTMLInputElement>document.getElementById("folderPath");
+    // folderSelector.addEventListener("change", function(){
+    //   model.constructTreeFromFileSystem(folderSelector.value);
+    // })
+
     document.getElementById("chooseFile")?.addEventListener("click", function(){actualInput.click();})
   }
  
@@ -41,6 +47,8 @@ export class Controller{
     view.zoom_factor *= size_ratio;
     model.current_root_polygon = parent;
     view.showTreemap(model.current_root_polygon);
+
+
     return;
   }
 

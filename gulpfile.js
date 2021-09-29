@@ -3,6 +3,8 @@ const webpack = require('webpack');
 const webpackDevServer = require('webpack-dev-server');
 const webpackConfig = require('./webpack.config.js');
 const del = require('del');
+const dirTree = require('directory-tree');
+const fs = require('fs');
 
 var exec = require ('child_process').exec;
 
@@ -106,6 +108,20 @@ function deployVoroTree(cb)
       });
 }
 
+// Create FS dataset
+function scanFileSystem(cb)
+{
+    const tree = dirTree("C:/Users/phorus/Documents/TU/MA/seminar/demonstrator/sweepline_demonstrator");
+    //console.log(tree)
+    let JSONdata = JSON.stringify(tree);
+    fs.writeFile("folder.json", JSONdata, function(err) {
+        if (err) {
+            cb(err)
+        }
+    })
+    cb();
+}
+
 
 exports.build = build;
 exports.serve = serve;
@@ -119,3 +135,4 @@ exports.buildElectronAllApps = gulp.series([build, buildElectronWin, buildElectr
 exports.clean = cleanDist;
 exports.cleanAll = gulp.series([cleanDist, cleanNodeModules]);
 exports.deploy = gulp.series([build, deployVoroTree]);
+exports.constructFolderDataset = scanFileSystem;
