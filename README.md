@@ -1,5 +1,7 @@
 # VoroTree #
 
+Live Demo: [GitHub Pages](https://somestudentcoder.github.io/vorotree/)
+
 Main dependencies:
 
 * **Application Server**: [Node](https://nodejs.org/en/)
