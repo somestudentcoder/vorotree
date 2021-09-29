@@ -42,7 +42,9 @@
     "d3-hierarchy": "^1.1.9",
     "d3-voronoi-treemap": "^1.1.1",
     "d3-weighted-voronoi": "^1.1.1",
+    "directory-tree": "^3.0.0",
     "electron-window-state": "^5.0.3",
+    "path-browserify": "^1.0.1",
     "pixi-viewport": "^4.18.1",
     "pixi.js": "^5.3.7"
   }

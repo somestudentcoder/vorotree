@@ -11,7 +11,11 @@ const config = {
         filename: 'bundle.js',
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.riot']
+        extensions: ['.tsx', '.ts', '.js'],
+        fallback: {
+            "fs": false,//require.resolve("browserify-fs"),
+            "path": require.resolve("path-browserify")
+          } 
     },
     module: {
         rules: [
