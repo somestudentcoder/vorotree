@@ -85,6 +85,15 @@ body {
   text-align: left;
 }
 
+.dropdown-content input {
+  font-family: Futura,Trebuchet MS,Arial,sans-serif;
+  font-size: 14px;
+  color: black;
+  padding: 1vh 1vw 1vh 1vw;
+  text-decoration: none;
+  display: block;
+}
+
 .dropdown-content a:hover {background-color: #ccffee}
 
 .dropdown:hover .dropdown-content {
