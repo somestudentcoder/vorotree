@@ -139,7 +139,6 @@ export class View{
       for(let polygon of root.polygon_children)
       {
         let font_size = 1 + polygon.width / 11;
-        console.log(font_size)
         let text = new PIXI.Text(polygon.name, {fill: 0xffffff,  stroke: 0x000000, strokeThickness: (0.5 + this.zoom_factor*1.5), fontSize: font_size});
         text.anchor.set(0.5);
         text.resolution = 2 * (1/this.zoom_factor);
@@ -269,8 +268,6 @@ export class View{
 
   displayLoading(b: boolean)
   {
-    console.log('displaying loading')
-    console.log(b)
     let loading: HTMLElement = document.getElementById('loading')!;
     if(b)
     {

@@ -11,8 +11,9 @@ export class Polygon extends PIXI.Graphics{
   public id: number = -1;
   public weight: number = -1;
   public name: string = "";
+  public path: string = "";
 
-  static from(d3_poly: Delaunay.Polygon, center_: Point, parent_?: Polygon, color_?: number[]){
+  static from(d3_poly: Delaunay.Polygon, center_: Point, parent_?: Polygon, color_?: number[], path_?: string){
     let poly = new Polygon();
     let ps = [];
     for(let point of d3_poly){
@@ -29,6 +30,7 @@ export class Polygon extends PIXI.Graphics{
     model.currentPolygonID++;
     poly.polygon_parent = parent_ == undefined ?  {} as Polygon : parent_;
     poly.center = center_;
+    poly.path = path_ == undefined ? "" : path_;
     return poly;
   }
 

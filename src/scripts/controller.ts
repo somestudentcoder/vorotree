@@ -28,6 +28,10 @@ export class Controller{
       if (polygon.hitArea.contains(x, y)) {
         if(polygon.polygon_children.length == 0)
         {
+          if(polygon.name.indexOf('.') > -1)
+          {
+            window.alert(polygon.path)
+          }
           return;
         }
         if (polygon.polygon_parent == model.root_polygon) {

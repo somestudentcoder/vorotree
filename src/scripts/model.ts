@@ -157,7 +157,7 @@ export class Model{
 
       let color = [color1, color2, color3]
 
-      let new_poly = Polygon.from(poly, poly.site, rootPolygon, color);
+      let new_poly = Polygon.from(poly, poly.site, rootPolygon, color, this.getPath(node.data));
       new_poly.polygon_parent = rootPolygon;
       new_poly.name = this.getName(node.data);
 
@@ -192,6 +192,15 @@ export class Model{
       return obj.weight;
     }
 
+  }
+
+  getPath(obj: any = {}){
+    if(obj.hasOwnProperty('path')){
+      return obj.path;
+    }
+    else{
+      return "";
+    }
   }
 
   getName(obj: any = {}){
