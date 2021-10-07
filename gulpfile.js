@@ -6,6 +6,9 @@ const del = require('del');
 const dirTree = require('directory-tree');
 const fs = require('fs');
 
+
+var folderconfig = require('./folderdatasetconfig.js')
+
 var exec = require ('child_process').exec;
 
 // Build/Serve
@@ -108,13 +111,13 @@ function deployVoroTree(cb)
       });
 }
 
-// Create FS dataset
+// Create Folder Dataset
 function scanFileSystem(cb)
 {
-    const tree = dirTree("C:/Users/phorus/Documents/TU/MA/seminar/demonstrator/sweepline_demonstrator");
-    //console.log(tree)
+    const tree = dirTree(folderconfig.src);
+
     let JSONdata = JSON.stringify(tree);
-    fs.writeFile("folder.json", JSONdata, function(err) {
+    fs.writeFile(folderconfig.output, JSONdata, function(err) {
         if (err) {
             cb(err)
         }
