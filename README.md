@@ -1,5 +1,7 @@
 # VoroTree #
 
+Live Demo: [GitHub Pages](https://somestudentcoder.github.io/vorotree/)
+
 Main dependencies:
 
 * **Application Server**: [Node](https://nodejs.org/en/)
@@ -89,6 +91,14 @@ as well as the "node_modules" folder.
 
   ```bash
   $> npx gulp cleanAll
+  ```
+
+The following command contstructs a .json dataset from a specified folder. This folder
+can then be viewed and navigated within VoroTree. Specify input folder and output name
+in the "folderdatasetconfig.js" file.
+
+  ```bash
+  $> npx gulp constructFolderDataset
   ```
 
 ## Deploying VoroTree to Github Pages ##

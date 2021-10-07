@@ -157,9 +157,10 @@ export class Model{
 
       let color = [color1, color2, color3]
 
-      let new_poly = Polygon.from(poly, poly.site, rootPolygon, color);
+      let new_poly = Polygon.from(poly, poly.site, rootPolygon, color, this.getPath(node.data));
       new_poly.polygon_parent = rootPolygon;
       new_poly.name = this.getName(node.data);
+      this.checkName(new_poly);
 
       new_poly.weight = this.calculateWeight(node);
 
@@ -192,6 +193,15 @@ export class Model{
       return obj.weight;
     }
 
+  }
+
+  getPath(obj: any = {}){
+    if(obj.hasOwnProperty('path')){
+      return obj.path;
+    }
+    else{
+      return "";
+    }
   }
 
   getName(obj: any = {}){
@@ -360,6 +370,94 @@ export class Model{
       case 6:
         this.loadExample(this.fileReloadSelector);
         break;
+    }
+  }
+
+
+  checkName(polygon: Polygon)
+  {
+    if(polygon.name.indexOf('.') > -1 && (polygon.name.split('.'))[0] != "")
+    {
+      let file_extension = polygon.name.split('.')[polygon.name.split('.').length-1]
+      switch(file_extension){
+        case "json":
+          polygon.name += '🧾'
+          break;
+        case "txt":
+          polygon.name += '📄'
+          break;
+        case "html":
+          polygon.name += '📑'
+          break;
+        case "doc":
+          polygon.name += '📄'
+          break;
+        case "docx":
+          polygon.name += '📄'
+          break;
+        case "pdf":
+          polygon.name += '📕'
+          break;
+        case "xls":
+          polygon.name += '📊'
+          break;
+        case "xlsx":
+          polygon.name += '📊'
+          break;
+        case "ppt":
+          polygon.name += '📈'
+          break;
+        case "pptx":
+          polygon.name += '📈'
+          break;
+        case "csv":
+          polygon.name += '📊'
+          break;
+        case "ts":
+          polygon.name += '⌨️'
+          break;
+        case "js":
+          polygon.name += '⌨️'
+          break;
+        case "css":
+          polygon.name += '🎨'
+          break;
+        case "jpg":
+          polygon.name += '🖼'
+          break;
+        case "jpeg":
+          polygon.name += '🖼'
+          break;
+        case "png":
+          polygon.name += '🖼'
+          break;
+        case "svg":
+          polygon.name += '🖼'
+          break;
+        case "mp3":
+          polygon.name += '🎵'
+          break;
+        case "wav":
+          polygon.name += '🎵'
+          break;
+        case "zip":
+          polygon.name += '🗃'
+          break;
+        case "exe":
+          polygon.name += '💽'
+          break;
+        case "bin":
+          polygon.name += '💽'
+          break;
+        case "py":
+          polygon.name += '🖥'
+          break;
+        case "bat":
+          polygon.name += '🖥'
+          break;
+        default:
+          break;
+      }
     }
   }
 
