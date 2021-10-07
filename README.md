@@ -93,6 +93,14 @@ as well as the "node_modules" folder.
   $> npx gulp cleanAll
   ```
 
+The following command contstructs a .json dataset from a specified folder. This folder
+can then be viewed and navigated within VoroTree. Specify input folder and output name
+in the "folderdatasetconfig.js" file.
+
+  ```bash
+  $> npx gulp constructFolderDataset
+  ```
+
 ## Deploying VoroTree to Github Pages ##
 
 Github Pages offers two ways of hosting your project. Either through an index.html within the root of your
