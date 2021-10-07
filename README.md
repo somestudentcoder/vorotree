@@ -119,7 +119,13 @@ Only some countries were selected to produce a smaller dataset for demonstration
 2. Custom car manufacturer dataset constructed by the author. It spans over a selection of car manufacturers divided by
 country of origin and select models of the brand.
 
-3. [Google product taxonomy](https://www.google.com/basepages/producttype/taxonomy.en-US.txt) - the list of categories used
+3. Adapted [Primate dataset](https://github.com/glouwa/d3-hypertree-examples/blob/master/demo/primates.d3.json) which is originally taken from the [Tree of Life project](http://tolweb.org/tree/). Represents the tree of species of Primates.
+
+4. [Drug dataset](https://www.genome.jp/kegg-bin/get_htext?htext=br08302.keg). A drug classification from the USA, that categorizes drugs according to substances and uses.  
+
+5. [Wikipedia editors over the world](https://dumps.wikimedia.org/other/geoeditors/). The nationalities of Wikipedia page editors. Editors are grouped by naionality per Wikipedia page language. Larger entries represent 100 or more editors, while smaller ones represent betwen 5 and 99 editors.
+
+6. [Google product taxonomy](https://www.google.com/basepages/producttype/taxonomy.en-US.txt) - the list of categories used
 by Google to help departmentalize products in a shopping feed.
 
 ## Data Model ##
