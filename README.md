@@ -95,7 +95,7 @@ as well as the "node_modules" folder.
 
 The following command contstructs a .json dataset from a specified folder. This folder
 can then be viewed and navigated within VoroTree. Specify input folder and output name
-in the "folderdatasetconfig.js" file.
+in the "/data/folderdatasetconfig.js" file.
 
   ```bash
   $> npx gulp constructFolderDataset
@@ -121,7 +121,7 @@ will automatically update the sourcecode of the hosted page.
 
 Three datasets are included in the VoroTree application for demonstration purposes.
 
-1. Highly edited version of [Country, Regional and World GDP (Gross Domestic Product)](https://datahub.io/core/gdp) dataset. 
+1. Highly edited version of [Country, Regional and World GDP (Gross Domestic Product)](https://datahub.io/core/gdp) dataset.
 Only some countries were selected to produce a smaller dataset for demonstration purposes.
 
 2. Custom car manufacturer dataset constructed by the author. It spans over a selection of car manufacturers divided by

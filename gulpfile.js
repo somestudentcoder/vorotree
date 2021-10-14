@@ -7,7 +7,7 @@ const dirTree = require('directory-tree');
 const fs = require('fs');
 
 
-var folderconfig = require('./folderdatasetconfig.js')
+var folderconfig = require('./data/folderdatasetconfig.js')
 
 var exec = require ('child_process').exec;
 
@@ -32,7 +32,7 @@ function build(cb) {
 function serve(cb){
     return new Promise((resolve, reject) => {
         envDev();
-        new webpackDevServer(webpack(webpackConfig), webpackConfig.devServer).listen(8080, 'localhost', (err) => {
+        new webpackDevServer(webpackConfig.devServer, webpack(webpackConfig)).start(8080, 'localhost', (err) => {
             if(err) throw new gutil.PluginError("webpack-dev-server", err);
           });
     })
