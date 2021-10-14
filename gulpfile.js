@@ -32,7 +32,7 @@ function build(cb) {
 function serve(cb){
     return new Promise((resolve, reject) => {
         envDev();
-        new webpackDevServer(webpack(webpackConfig), webpackConfig.devServer).listen(8080, 'localhost', (err) => {
+        new webpackDevServer(webpackConfig.devServer, webpack(webpackConfig)).start(8080, 'localhost', (err) => {
             if(err) throw new gutil.PluginError("webpack-dev-server", err);
           });
     })
