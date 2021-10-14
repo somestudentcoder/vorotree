@@ -7,7 +7,7 @@ const dirTree = require('directory-tree');
 const fs = require('fs');
 
 
-var folderconfig = require('./folderdatasetconfig.js')
+var folderconfig = require('./data/folderdatasetconfig.js')
 
 var exec = require ('child_process').exec;
 
