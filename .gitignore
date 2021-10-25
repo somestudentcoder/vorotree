@@ -7,3 +7,4 @@ standalone
 .idea
 .DS_Store
 .vscode
+folder*.json
