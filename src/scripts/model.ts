@@ -124,13 +124,13 @@ export class Model{
     if(rootNode.children == undefined){
       return;
     }
-    let sum = 0;
-    for(let leaf of rootNode.leaves()){
-      sum += parseInt(this.getWeight(leaf.data));
-    }
-    for(let leaf of rootNode.leaves()){
-      leaf.data['weight'] = (leaf.data['weight'] * 100) / sum;
-    }
+    // let sum = 0;
+    // for(let leaf of rootNode.leaves()){
+    //   sum += parseInt(this.getWeight(leaf.data));
+    // }
+    // for(let leaf of rootNode.leaves()){
+    //   leaf.data['weight'] = (leaf.data['weight'] * 100) / sum;
+    // }
     let polygon = this.getPolygon(rootNode);
     this.root_polygon = Polygon.from(polygon, polygon.site);
     this.root_polygon.center = new Point(view.width / 2, view.height / 2);
@@ -165,7 +165,7 @@ export class Model{
       new_poly.name = this.getName(node.data);
       this.checkName(new_poly);
 
-      new_poly.weight = this.calculateWeight(node);
+      //new_poly.weight = this.calculateWeight(node);
 
       rootPolygon.polygon_children.push(new_poly);
       this.treemapToPolygons(new_poly, node, false);
@@ -173,30 +173,30 @@ export class Model{
     }
   }
 
-  calculateWeight(root: HierarchyNode<unknown>){
-    let weight = this.getWeight(root.data);
-    if(weight == undefined || weight == ""){
-      if(root.children == undefined){
-        console.error("node has no weight and no children");
-        return;
-      }
-      weight = 0;
-      for(let child of root.children){
-        weight += this.calculateWeight(child);
-      }
-    }
-    return weight;
-  }
+  // calculateWeight(root: HierarchyNode<unknown>){
+  //   let weight = this.getWeight(root.data);
+  //   if(weight == undefined || weight == ""){
+  //     if(root.children == undefined){
+  //       console.error("node has no weight and no children");
+  //       return;
+  //     }
+  //     weight = 0;
+  //     for(let child of root.children){
+  //       weight += this.calculateWeight(child);
+  //     }
+  //   }
+  //   return weight;
+  // }
 
-  getWeight(obj: any = {}){
-    if(obj.hasOwnProperty('poly_weight')){
-      return obj.poly_weight;
-    }
-    else{
-      return obj.weight;
-    }
+  // getWeight(obj: any = {}){
+  //   if(obj.hasOwnProperty('poly_weight')){
+  //     return obj.poly_weight;
+  //   }
+  //   else{
+  //     return obj.weight;
+  //   }
 
-  }
+  // }
 
   getPath(obj: any = {}){
     if(obj.hasOwnProperty('path')){
@@ -279,7 +279,7 @@ export class Model{
     var voronoitreemap = await voronoiTreemap() 
                                       .clip([[0, 0], [0, view.height], [view.width, view.height], [view.width, 0]])
                                       .prng(this.prng);
-    // voronoitreemap.clip([[0, 0], [0, view.height], [view.width, view.height], [view.width, 0]]);
+
     await voronoitreemap(root);
     this.createRootPolygon(root);
     view.showTreemap(this.root_polygon)
