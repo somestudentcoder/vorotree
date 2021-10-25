@@ -114,7 +114,7 @@ function deployVoroTree(cb)
 // Create Folder Dataset
 function scanFileSystem(cb)
 {
-    const tree = dirTree(folderconfig.src);
+    const tree = dirTree(folderconfig.src, {attributes:['size']});
 
     let JSONdata = JSON.stringify(tree);
     fs.writeFile(folderconfig.output, JSONdata, function(err) {
