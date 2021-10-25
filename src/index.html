@@ -33,11 +33,18 @@
             </div>
 
             <div class="dropdown">
-                <button class="navbtn" type="button">Color</button>
+                <button class="navbtn" type="button">Settings</button>
                 <div class="dropdown-content">
-                    <a href="javascript:view.setColorScheme(1)">Aquamarine</a>
-                    <a href="javascript:view.setColorScheme(2)">Rainbow</a>
-                    <a href="javascript:view.setColorScheme(3)">Grayscale</a>
+                    <div class="dropdowntitle">Color</div>
+                    <a href="javascript:view.setColorScheme(1)">aquamarine</a>
+                    <a href="javascript:view.setColorScheme(2)">rainbow</a>
+                    <a href="javascript:view.setColorScheme(3)">grayscale</a>
+                    <div class="dropdowntitle">Cell Placement</div>
+                    <a href="javascript:model.setStaticConstruction(true)">static</a>
+                    <a href="javascript:model.setStaticConstruction(false)">dynamic</a>
+                    <div class="dropdowntitle">Weighted attribute</div>
+                    <a class="weightedattribute" href="">no. of children</a>
+                    <a class="weightedattribute" href="">something else</a>
                 </div>
             </div>
             

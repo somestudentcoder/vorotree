@@ -7,12 +7,21 @@ import {csvParse} from "d3-dsv";
 import chroma = require('chroma-js');
 import dirTree = require('directory-tree');
 
+var seedrandom = require('seedrandom');
+let AQUAMARINE = chroma.scale(['#80ff80', '#80ff9f', '#80ffbf', '#7fffd4', '#80ffdf', '#80ffff', '#80dfff', '#80bfff']);
+let RAINBOW = chroma.scale(['red', 'orange', 'yellow', 'green', 'turquoise', 'blue', 'purple']);
+let GRAYSCALE = chroma.scale(['#e6e6e6', '#cccccc', '#b3b3b3', '#999999', '#808080', '#737373', '#595959']);
+let Y_SCALE = chroma.scale(['#000000', '#7d7d7d']);
+
 export class Model{
   public currentPolygonID: number = 0;
   public root_polygon: Polygon = {} as Polygon;
   public current_root_polygon: Polygon = {} as Polygon;
   public lastFileRead: any;
   public fileReloadSelector: number = -1;
+  public staticConstruction: boolean = true;
+  public seed: number = Math.random();
+  public prng = seedrandom(this.seed);
 
 
   loadExample(ex: number) {
@@ -137,22 +146,16 @@ export class Model{
     for(let node of rootNode.children){
       let poly = this.getPolygon(node);
 
-      let x_scale = chroma.scale(['#80ff80', '#80ff9f', '#80ffbf', '#7fffd4', '#80ffdf', '#80ffff', '#80dfff', '#80bfff']);
-      let y_scale = chroma.scale(['#000000', '#7d7d7d']);
-      let c1 = x_scale(poly.site.x / view.width);
-      let c2 = y_scale(poly.site.y / view.height);
+      let c1 = AQUAMARINE(poly.site.x / view.width);
+      let c2 = Y_SCALE(poly.site.y / view.height);
       let color1 = chroma.mix(c1, c2).num()
 
-      x_scale = chroma.scale(['red', 'orange', 'yellow', 'green', 'turquoise', 'blue', 'purple']);
-      y_scale = chroma.scale(['#000000', '#7d7d7d']);
-      c1 = x_scale(poly.site.x / view.width);
-      c2 = y_scale(poly.site.y / view.height);
+      c1 = RAINBOW(poly.site.x / view.width);
+      c2 = Y_SCALE(poly.site.y / view.height);
       let color2 = chroma.mix(c1, c2).num()
 
-      x_scale = chroma.scale(['#e6e6e6', '#cccccc', '#b3b3b3', '#999999', '#808080', '#737373', '#595959']);
-      y_scale = chroma.scale(['#000000', '#7d7d7d']);
-      c1 = x_scale(poly.site.x / view.width);
-      c2 = y_scale(poly.site.y / view.height);
+      c1 = GRAYSCALE(poly.site.x / view.width);
+      c2 = Y_SCALE(poly.site.y / view.height);
       let color3 = chroma.mix(c1, c2).num()
 
       let color = [color1, color2, color3]
@@ -268,7 +271,15 @@ export class Model{
       return d.weight;
     });
 
-    let voronoitreemap = await voronoiTreemap().clip([[0, 0], [0, view.height], [view.width, view.height], [view.width, 0]]);
+    if(!this.staticConstruction)
+    {
+      this.prng = seedrandom(Math.random());
+    }
+
+    var voronoitreemap = await voronoiTreemap() 
+                                      .clip([[0, 0], [0, view.height], [view.width, view.height], [view.width, 0]])
+                                      .prng(this.prng);
+    // voronoitreemap.clip([[0, 0], [0, view.height], [view.width, view.height], [view.width, 0]]);
     await voronoitreemap(root);
     this.createRootPolygon(root);
     view.showTreemap(this.root_polygon)
@@ -278,13 +289,14 @@ export class Model{
   refresh() {
     view.viewport.removeChildren();
     view.resetViewItems();
+    this.prng = seedrandom(this.seed);
   }
 
   assignWeights(leaves: HierarchyNode<any>[]) {
-    leaves.forEach(function (leave: HierarchyNode<any>) {
-      if(!leave.data.hasOwnProperty('weight') || leave.data['weight'] == '') {
-        leave.data['poly_weight'] = 100 / leaves.length;
-        leave.data['weight'] = 100 / leaves.length;
+    leaves.forEach(function (leaf: HierarchyNode<any>) {
+      if(!leaf.data.hasOwnProperty('weight') || leaf.data['weight'] == '') {
+        //leaf.data['poly_weight'] = 100 / leaves.length;
+        leaf.data['weight'] = 100 / leaves.length;
       }
       else
         return;
@@ -459,6 +471,11 @@ export class Model{
           break;
       }
     }
+  }
+
+  setStaticConstruction(value: boolean)
+  {
+    this.staticConstruction = value;
   }
 
 
