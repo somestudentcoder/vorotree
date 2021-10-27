@@ -34,7 +34,7 @@
 
             <div class="dropdown">
                 <button class="navbtn" type="button">Settings</button>
-                <div class="dropdown-content">
+                <div class="dropdown-content" id="settings">
                     <div class="dropdowntitle">Color</div>
                     <a href="javascript:view.setColorScheme(1)">aquamarine</a>
                     <a href="javascript:view.setColorScheme(2)">rainbow</a>
@@ -43,8 +43,7 @@
                     <a href="javascript:model.setStaticConstruction(true)">static</a>
                     <a href="javascript:model.setStaticConstruction(false)">dynamic</a>
                     <div class="dropdowntitle">Weighted attribute</div>
-                    <a class="weightedattribute" href="">no. of children</a>
-                    <a class="weightedattribute" href="">something else</a>
+                    <a class="weightedattribute" href="javascript:model.setWeightAttribute('children')">children</a>
                 </div>
             </div>
             

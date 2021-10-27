@@ -22,6 +22,7 @@ export class Model{
   public staticConstruction: boolean = true;
   public seed: number = Math.random();
   public prng = seedrandom(this.seed);
+  public weight_attribute: string = 'weight'; 
 
 
   loadExample(ex: number) {
@@ -32,6 +33,7 @@ export class Model{
       json('data/world_gdp.json')
         .then((jsonData) => {
           let root = hierarchy(jsonData);
+          this.assignWeights(root.leaves(), this.weight_attribute);
           this.createTreemap(root);
           this.fileReloadSelector = 1;
         })
@@ -48,6 +50,7 @@ export class Model{
             .id(function (d:any = {}) { return d.name; })
             .parentId(function (d:any = {}) { return d.parent; })
             (csvData);
+          this.assignWeights(root.leaves(), this.weight_attribute);
           this.createTreemap(root);
           this.fileReloadSelector = 2;
         })
@@ -61,7 +64,7 @@ export class Model{
       json('data/primates.json')
         .then((jsonData) => {
             let root = hierarchy(jsonData);
-            this.assignWeights(root.leaves());
+            this.assignWeights(root.leaves(), this.weight_attribute);
             this.createTreemap(root);
             this.fileReloadSelector = 3;
         })
@@ -78,7 +81,7 @@ export class Model{
             .id(function (d:any = {}) { return d.name; })
             .parentId(function (d:any = {}) { return d.parent; })
             (csvData);
-          this.assignWeights(root.leaves());
+          this.assignWeights(root.leaves(), this.weight_attribute);
           this.createTreemap(root);
           this.fileReloadSelector = 4;
         })
@@ -95,6 +98,7 @@ export class Model{
             .id(function (d:any = {}) { return d.name; })
             .parentId(function (d:any = {}) { return d.parent; })
             (csvData);
+          this.assignWeights(root.leaves(), this.weight_attribute);
           this.createTreemap(root);
           this.fileReloadSelector = 5;
         })
@@ -108,7 +112,7 @@ export class Model{
       json('data/google_product_taxonomy.json')
         .then((jsonData) => {
             let root = hierarchy(jsonData);
-            this.assignWeights(root.leaves());
+            this.assignWeights(root.leaves(), this.weight_attribute);
             this.createTreemap(root);
             this.fileReloadSelector = 6;
         })
@@ -254,7 +258,7 @@ export class Model{
               return;
             }
 
-            this.assignWeights(root.leaves());
+            this.assignWeights(root.leaves(), this.weight_attribute);
             this.createTreemap(root);
         }
       }
@@ -292,15 +296,28 @@ export class Model{
     this.prng = seedrandom(this.seed);
   }
 
-  assignWeights(leaves: HierarchyNode<any>[]) {
-    leaves.forEach(function (leaf: HierarchyNode<any>) {
-      if(!leaf.data.hasOwnProperty('weight') || leaf.data['weight'] == '') {
-        //leaf.data['poly_weight'] = 100 / leaves.length;
+  assignWeights(leaves: HierarchyNode<any>[], attribute: string) {
+    
+    this.setAttributeButtons(leaves[0]);
+
+    if(attribute == 'weight' && !leaves[0].data.hasOwnProperty('weight') || leaves[0].data['weight'] == '') {
+      leaves.forEach(function (leaf: HierarchyNode<any>) {
         leaf.data['weight'] = 100 / leaves.length;
-      }
-      else
-        return;
-    });
+      });
+    }
+    else if(attribute == 'children'){
+      leaves.forEach(function (leaf: HierarchyNode<any>) {
+        leaf.data['weight'] = 100 / leaves.length;
+      });
+    }
+    else if(attribute != 'weight'){
+      leaves.forEach(function (leaf: HierarchyNode<any>) {
+        leaf.data['weight'] = leaf.data[attribute];
+      });
+    }
+
+    this.weight_attribute = 'weight';
+
     return;
   }
 
@@ -473,10 +490,40 @@ export class Model{
     }
   }
 
-  setStaticConstruction(value: boolean)
-  {
+  setStaticConstruction(value: boolean){
     this.staticConstruction = value;
   }
 
+  setWeightAttribute(value: string){
+    this.weight_attribute = value;
+    this.loadLastData();
+  }
 
+  setAttributeButtons(leaf: HierarchyNode<any>){
+    let settings_element = document.getElementById('settings');
+    let oldbuttons = document.getElementsByClassName('weightedattribute');
+    while(oldbuttons.length > 0){
+      settings_element?.removeChild(oldbuttons[0]);
+    }
+
+    // add no. of children button
+    let element = document.createElement("a");
+    element.appendChild(document.createTextNode('no. of children'));
+    element.href = ("javascript:model.setWeightAttribute('children')");
+    element.classList.add('weightedattribute');
+    settings_element?.appendChild(element);
+
+    //add a button for every available attribute
+    let keys = Object.keys(leaf.data);
+    for (let index = 0; index < keys.length; index++) {
+      if(Number.isFinite(leaf.data[keys[index]]))
+      {
+        let element = document.createElement("a");
+        element.appendChild(document.createTextNode(keys[index]));
+        element.href = ("javascript:model.setWeightAttribute('"+keys[index]+"')");
+        element.classList.add('weightedattribute');
+        settings_element?.appendChild(element);
+      }
+    }
+  }
 }
