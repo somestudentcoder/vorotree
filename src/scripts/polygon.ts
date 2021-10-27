@@ -9,7 +9,7 @@ export class Polygon extends PIXI.Graphics{
   public polygon_parent: Polygon = {} as Polygon;
   public color: number[] = [-1, -1, -1];
   public id: number = -1;
-  public weight: number = -1;
+  //public weight: number = -1;
   public name: string = "";
   public path: string = "";
 

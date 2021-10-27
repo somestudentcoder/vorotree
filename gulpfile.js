@@ -39,7 +39,7 @@ function serve(cb){
 }
 
 function runElectron(cb){
-    exec('electron .', function (err, stdout, stderr) {
+    exec('npx electron .', function (err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
         cb(err);
@@ -47,7 +47,7 @@ function runElectron(cb){
 }
 
 function buildElectron(cb){
-    exec('electron-packager . --out ./standalone --overwrite', function (err, stdout, stderr) {
+    exec('npx electron-packager . --out ./standalone --overwrite', function (err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
         cb(err);
@@ -55,7 +55,7 @@ function buildElectron(cb){
 }
 
 function buildElectronWin(cb){
-    exec('electron-packager . --out ./standalone --overwrite --platform "win32"', function (err, stdout, stderr) {
+    exec('npx electron-packager . --out ./standalone --overwrite --platform "win32"', function (err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
         cb(err);
@@ -63,7 +63,7 @@ function buildElectronWin(cb){
 }
 
 function buildElectronMac(cb){
-    exec('electron-packager . --out ./standalone --overwrite --platform "darwin"', function (err, stdout, stderr) {
+    exec('npx electron-packager . --out ./standalone --overwrite --platform "darwin"', function (err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
         cb(err);
@@ -71,7 +71,7 @@ function buildElectronMac(cb){
 }
 
 function buildElectronLinux(cb){
-    exec('electron-packager . --out ./standalone --overwrite --platform "linux"', function (err, stdout, stderr) {
+    exec('npx electron-packager . --out ./standalone --overwrite --platform "linux"', function (err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
         cb(err);
@@ -114,7 +114,7 @@ function deployVoroTree(cb)
 // Create Folder Dataset
 function scanFileSystem(cb)
 {
-    const tree = dirTree(folderconfig.src);
+    const tree = dirTree(folderconfig.src, {attributes:['size']});
 
     let JSONdata = JSON.stringify(tree);
     fs.writeFile(folderconfig.output, JSONdata, function(err) {

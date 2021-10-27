@@ -1,4 +1,4 @@
 module.exports = {
-	src:"C:/Users/phorus/Documents/TU/MA/project/testfolder",
-	output:"folder3.json"
+	src:"C:/Users/phorus/Documents/TU/MA/papers",
+	output:"folderdatasets/folder.json"
 };

@@ -7,12 +7,22 @@ import {csvParse} from "d3-dsv";
 import chroma = require('chroma-js');
 import dirTree = require('directory-tree');
 
+var seedrandom = require('seedrandom');
+let AQUAMARINE = chroma.scale(['#80ff80', '#80ff9f', '#80ffbf', '#7fffd4', '#80ffdf', '#80ffff', '#80dfff', '#80bfff']);
+let RAINBOW = chroma.scale(['red', 'orange', 'yellow', 'green', 'turquoise', 'blue', 'purple']);
+let GRAYSCALE = chroma.scale(['#e6e6e6', '#cccccc', '#b3b3b3', '#999999', '#808080', '#737373', '#595959']);
+let Y_SCALE = chroma.scale(['#000000', '#7d7d7d']);
+
 export class Model{
   public currentPolygonID: number = 0;
   public root_polygon: Polygon = {} as Polygon;
   public current_root_polygon: Polygon = {} as Polygon;
   public lastFileRead: any;
   public fileReloadSelector: number = -1;
+  public staticConstruction: boolean = true;
+  public seed: number = Math.random();
+  public prng = seedrandom(this.seed);
+  public weight_attribute: string = 'weight'; 
 
 
   loadExample(ex: number) {
@@ -23,6 +33,7 @@ export class Model{
       json('data/world_gdp.json')
         .then((jsonData) => {
           let root = hierarchy(jsonData);
+          this.assignWeights(root.leaves(), this.weight_attribute);
           this.createTreemap(root);
           this.fileReloadSelector = 1;
         })
@@ -39,6 +50,7 @@ export class Model{
             .id(function (d:any = {}) { return d.name; })
             .parentId(function (d:any = {}) { return d.parent; })
             (csvData);
+          this.assignWeights(root.leaves(), this.weight_attribute);
           this.createTreemap(root);
           this.fileReloadSelector = 2;
         })
@@ -52,7 +64,7 @@ export class Model{
       json('data/primates.json')
         .then((jsonData) => {
             let root = hierarchy(jsonData);
-            this.assignWeights(root.leaves());
+            this.assignWeights(root.leaves(), this.weight_attribute);
             this.createTreemap(root);
             this.fileReloadSelector = 3;
         })
@@ -69,7 +81,7 @@ export class Model{
             .id(function (d:any = {}) { return d.name; })
             .parentId(function (d:any = {}) { return d.parent; })
             (csvData);
-          this.assignWeights(root.leaves());
+          this.assignWeights(root.leaves(), this.weight_attribute);
           this.createTreemap(root);
           this.fileReloadSelector = 4;
         })
@@ -86,6 +98,7 @@ export class Model{
             .id(function (d:any = {}) { return d.name; })
             .parentId(function (d:any = {}) { return d.parent; })
             (csvData);
+          this.assignWeights(root.leaves(), this.weight_attribute);
           this.createTreemap(root);
           this.fileReloadSelector = 5;
         })
@@ -99,7 +112,7 @@ export class Model{
       json('data/google_product_taxonomy.json')
         .then((jsonData) => {
             let root = hierarchy(jsonData);
-            this.assignWeights(root.leaves());
+            this.assignWeights(root.leaves(), this.weight_attribute);
             this.createTreemap(root);
             this.fileReloadSelector = 6;
         })
@@ -115,13 +128,13 @@ export class Model{
     if(rootNode.children == undefined){
       return;
     }
-    let sum = 0;
-    for(let leaf of rootNode.leaves()){
-      sum += parseInt(this.getWeight(leaf.data));
-    }
-    for(let leaf of rootNode.leaves()){
-      leaf.data['weight'] = (leaf.data['weight'] * 100) / sum;
-    }
+    // let sum = 0;
+    // for(let leaf of rootNode.leaves()){
+    //   sum += parseInt(this.getWeight(leaf.data));
+    // }
+    // for(let leaf of rootNode.leaves()){
+    //   leaf.data['weight'] = (leaf.data['weight'] * 100) / sum;
+    // }
     let polygon = this.getPolygon(rootNode);
     this.root_polygon = Polygon.from(polygon, polygon.site);
     this.root_polygon.center = new Point(view.width / 2, view.height / 2);
@@ -137,22 +150,16 @@ export class Model{
     for(let node of rootNode.children){
       let poly = this.getPolygon(node);
 
-      let x_scale = chroma.scale(['#80ff80', '#80ff9f', '#80ffbf', '#7fffd4', '#80ffdf', '#80ffff', '#80dfff', '#80bfff']);
-      let y_scale = chroma.scale(['#000000', '#7d7d7d']);
-      let c1 = x_scale(poly.site.x / view.width);
-      let c2 = y_scale(poly.site.y / view.height);
+      let c1 = AQUAMARINE(poly.site.x / view.width);
+      let c2 = Y_SCALE(poly.site.y / view.height);
       let color1 = chroma.mix(c1, c2).num()
 
-      x_scale = chroma.scale(['red', 'orange', 'yellow', 'green', 'turquoise', 'blue', 'purple']);
-      y_scale = chroma.scale(['#000000', '#7d7d7d']);
-      c1 = x_scale(poly.site.x / view.width);
-      c2 = y_scale(poly.site.y / view.height);
+      c1 = RAINBOW(poly.site.x / view.width);
+      c2 = Y_SCALE(poly.site.y / view.height);
       let color2 = chroma.mix(c1, c2).num()
 
-      x_scale = chroma.scale(['#e6e6e6', '#cccccc', '#b3b3b3', '#999999', '#808080', '#737373', '#595959']);
-      y_scale = chroma.scale(['#000000', '#7d7d7d']);
-      c1 = x_scale(poly.site.x / view.width);
-      c2 = y_scale(poly.site.y / view.height);
+      c1 = GRAYSCALE(poly.site.x / view.width);
+      c2 = Y_SCALE(poly.site.y / view.height);
       let color3 = chroma.mix(c1, c2).num()
 
       let color = [color1, color2, color3]
@@ -162,7 +169,7 @@ export class Model{
       new_poly.name = this.getName(node.data);
       this.checkName(new_poly);
 
-      new_poly.weight = this.calculateWeight(node);
+      //new_poly.weight = this.calculateWeight(node);
 
       rootPolygon.polygon_children.push(new_poly);
       this.treemapToPolygons(new_poly, node, false);
@@ -170,30 +177,30 @@ export class Model{
     }
   }
 
-  calculateWeight(root: HierarchyNode<unknown>){
-    let weight = this.getWeight(root.data);
-    if(weight == undefined || weight == ""){
-      if(root.children == undefined){
-        console.error("node has no weight and no children");
-        return;
-      }
-      weight = 0;
-      for(let child of root.children){
-        weight += this.calculateWeight(child);
-      }
-    }
-    return weight;
-  }
+  // calculateWeight(root: HierarchyNode<unknown>){
+  //   let weight = this.getWeight(root.data);
+  //   if(weight == undefined || weight == ""){
+  //     if(root.children == undefined){
+  //       console.error("node has no weight and no children");
+  //       return;
+  //     }
+  //     weight = 0;
+  //     for(let child of root.children){
+  //       weight += this.calculateWeight(child);
+  //     }
+  //   }
+  //   return weight;
+  // }
 
-  getWeight(obj: any = {}){
-    if(obj.hasOwnProperty('poly_weight')){
-      return obj.poly_weight;
-    }
-    else{
-      return obj.weight;
-    }
+  // getWeight(obj: any = {}){
+  //   if(obj.hasOwnProperty('poly_weight')){
+  //     return obj.poly_weight;
+  //   }
+  //   else{
+  //     return obj.weight;
+  //   }
 
-  }
+  // }
 
   getPath(obj: any = {}){
     if(obj.hasOwnProperty('path')){
@@ -251,7 +258,7 @@ export class Model{
               return;
             }
 
-            this.assignWeights(root.leaves());
+            this.assignWeights(root.leaves(), this.weight_attribute);
             this.createTreemap(root);
         }
       }
@@ -268,7 +275,15 @@ export class Model{
       return d.weight;
     });
 
-    let voronoitreemap = await voronoiTreemap().clip([[0, 0], [0, view.height], [view.width, view.height], [view.width, 0]]);
+    if(!this.staticConstruction)
+    {
+      this.prng = seedrandom(Math.random());
+    }
+
+    var voronoitreemap = await voronoiTreemap() 
+                                      .clip([[0, 0], [0, view.height], [view.width, view.height], [view.width, 0]])
+                                      .prng(this.prng);
+
     await voronoitreemap(root);
     this.createRootPolygon(root);
     view.showTreemap(this.root_polygon)
@@ -278,17 +293,31 @@ export class Model{
   refresh() {
     view.viewport.removeChildren();
     view.resetViewItems();
+    this.prng = seedrandom(this.seed);
   }
 
-  assignWeights(leaves: HierarchyNode<any>[]) {
-    leaves.forEach(function (leave: HierarchyNode<any>) {
-      if(!leave.data.hasOwnProperty('weight') || leave.data['weight'] == '') {
-        leave.data['poly_weight'] = 100 / leaves.length;
-        leave.data['weight'] = 100 / leaves.length;
-      }
-      else
-        return;
-    });
+  assignWeights(leaves: HierarchyNode<any>[], attribute: string) {
+    
+    this.setAttributeButtons(leaves[0]);
+
+    if(attribute == 'weight' && !leaves[0].data.hasOwnProperty('weight') || leaves[0].data['weight'] == '') {
+      leaves.forEach(function (leaf: HierarchyNode<any>) {
+        leaf.data['weight'] = 100 / leaves.length;
+      });
+    }
+    else if(attribute == 'children'){
+      leaves.forEach(function (leaf: HierarchyNode<any>) {
+        leaf.data['weight'] = 100 / leaves.length;
+      });
+    }
+    else if(attribute != 'weight'){
+      leaves.forEach(function (leaf: HierarchyNode<any>) {
+        leaf.data['weight'] = leaf.data[attribute];
+      });
+    }
+
+    this.weight_attribute = 'weight';
+
     return;
   }
 
@@ -461,5 +490,40 @@ export class Model{
     }
   }
 
+  setStaticConstruction(value: boolean){
+    this.staticConstruction = value;
+  }
 
+  setWeightAttribute(value: string){
+    this.weight_attribute = value;
+    this.loadLastData();
+  }
+
+  setAttributeButtons(leaf: HierarchyNode<any>){
+    let settings_element = document.getElementById('settings');
+    let oldbuttons = document.getElementsByClassName('weightedattribute');
+    while(oldbuttons.length > 0){
+      settings_element?.removeChild(oldbuttons[0]);
+    }
+
+    // add no. of children button
+    let element = document.createElement("a");
+    element.appendChild(document.createTextNode('no. of children'));
+    element.href = ("javascript:model.setWeightAttribute('children')");
+    element.classList.add('weightedattribute');
+    settings_element?.appendChild(element);
+
+    //add a button for every available attribute
+    let keys = Object.keys(leaf.data);
+    for (let index = 0; index < keys.length; index++) {
+      if(Number.isFinite(leaf.data[keys[index]]))
+      {
+        let element = document.createElement("a");
+        element.appendChild(document.createTextNode(keys[index]));
+        element.href = ("javascript:model.setWeightAttribute('"+keys[index]+"')");
+        element.classList.add('weightedattribute');
+        settings_element?.appendChild(element);
+      }
+    }
+  }
 }
