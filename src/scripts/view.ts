@@ -176,9 +176,23 @@ export class View{
     view.height = view.app.view.height
     view.width = view.app.view.width
     view.resetViewItems();
+
+    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    console.log("Width: " + view.width)
+    console.log("screenWidth: " + view.viewport.screenWidth)
+    console.log("worldWidth: " + view.viewport.worldWidth)
+    console.log("worldScreenWidth: " + view.viewport.worldScreenWidth)
+
+
     view.viewport.clampZoom({maxWidth: view.width, maxHeight:view.height})
     view.viewport.resize(view.app.view.width, view.app.view.height,view.app.view.width, view.app.view.height);
+    //view.app.renderer.resize(view.width, view.height)
+    view.viewport.scale.set(1)
 
+    console.log("screenWidth: " + view.viewport.screenWidth)
+    console.log("worldWidth: " + view.viewport.worldWidth)
+    console.log("worldScreenWidth: " + view.viewport.worldScreenWidth)
+    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     model.loadLastData();
   }
 
