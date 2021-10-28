@@ -175,8 +175,9 @@ export class View{
     view.app.resize();
     view.height = view.app.view.height
     view.width = view.app.view.width
-    view.viewport.resize(view.app.view.width, view.app.view.height, view.app.view.width, view.app.view.height);
     view.resetViewItems();
+    view.viewport.clampZoom({maxWidth: view.width, maxHeight:view.height})
+    view.viewport.resize(view.app.view.width, view.app.view.height,view.app.view.width, view.app.view.height);
 
     model.loadLastData();
   }
