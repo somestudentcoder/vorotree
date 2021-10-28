@@ -141,7 +141,9 @@ by Google to help departmentalize products in a shopping feed.
 The tool supports JSON and CSV files which need to have the following format in order to visualize the data properly.
 
 * **Name** is used as the label of the polygon.
+* **Children** or **Parent**, depending on the filetype used, define the hierarchical nature of your data.
 * **Weight** influences the size of the polygon. Only the leaves should have this property. If the weight is not given, the size of the polygon depends on the amount of children.
+* Any other attributes of a data point that are a number are automatically added to the settings menu as a weight accessor. So any other numerical attributes in your data can also be used to weight the visualization i.e. **Size**, **Age** etc..
 
 ### JSON Example ###
 
