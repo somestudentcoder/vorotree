@@ -36,14 +36,20 @@
                 <button class="navbtn" type="button">Settings</button>
                 <div class="dropdown-content" id="settings">
                     <div class="dropdowntitle">Color</div>
-                    <a href="javascript:view.setColorScheme(1)">aquamarine</a>
-                    <a href="javascript:view.setColorScheme(2)">rainbow</a>
-                    <a href="javascript:view.setColorScheme(3)">grayscale</a>
+                        <input onclick="javascript:view.setColorScheme(1)" type="radio" name="color" class="radioButtons" id="aquamarine" value="aquamarine" checked="true">
+                        <label for="aquamarine">aquamarine</label>
+                        <input onclick="javascript:view.setColorScheme(2)" type="radio" name="color" class="radioButtons" id="rainbow" value="rainbow">
+                        <label for="rainbow">rainbow</label>
+                        <input onclick="javascript:view.setColorScheme(3)" type="radio" name="color" class="radioButtons" id="grayscale" value="grayscale">
+                        <label for="grayscale">grayscale</label>
                     <div class="dropdowntitle">Cell Placement</div>
-                    <a href="javascript:model.setStaticConstruction(true)">static</a>
-                    <a href="javascript:model.setStaticConstruction(false)">dynamic</a>
+                        <input onclick="javascript:model.setStaticConstruction(true)" type="radio" name="placement" class="radioButtons" id="static" value="static" checked="true">
+                        <label for="static">static</label>
+                        <input onclick="javascript:model.setStaticConstruction(false)" type="radio" name="placement" class="radioButtons" id="dynamic" value="dynamic">
+                        <label for="dynamic">dynamic</label>
                     <div class="dropdowntitle">Weighted attribute</div>
-                    <a class="weightedattribute" href="javascript:model.setWeightAttribute('children')">children</a>
+                        <input onclick="javascript:model.setStaticConstruction(false)" type="radio" name="attribute" class="radioButtons, weightedattribute" id="children" value="children">
+                        <label class="weightedattribute" for="children">no. of children</label>
                 </div>
             </div>
             
