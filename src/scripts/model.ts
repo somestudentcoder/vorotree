@@ -6,6 +6,7 @@ import { voronoiTreemap } from "d3-voronoi-treemap";
 import {csvParse} from "d3-dsv";
 import chroma = require('chroma-js');
 import dirTree = require('directory-tree');
+import { lab } from 'chroma-js';
 
 var seedrandom = require('seedrandom');
 let AQUAMARINE = chroma.scale(['#80ff80', '#80ff9f', '#80ffbf', '#7fffd4', '#80ffdf', '#80ffff', '#80dfff', '#80bfff']);
@@ -303,20 +304,25 @@ export class Model{
     if(attribute == 'weight' && !leaves[0].data.hasOwnProperty('weight') || leaves[0].data['weight'] == '') {
       leaves.forEach(function (leaf: HierarchyNode<any>) {
         leaf.data['weight'] = 100 / leaves.length;
+        model.weight_attribute = 'children';
       });
     }
     else if(attribute == 'children'){
       leaves.forEach(function (leaf: HierarchyNode<any>) {
         leaf.data['weight'] = 100 / leaves.length;
+        model.weight_attribute = 'children';
       });
     }
     else if(attribute != 'weight'){
       leaves.forEach(function (leaf: HierarchyNode<any>) {
         leaf.data['weight'] = leaf.data[attribute];
+        model.weight_attribute = attribute;
       });
     }
+    else if(attribute == 'weight'){model.weight_attribute = 'weight';}
 
-    this.weight_attribute = 'weight';
+    let active = document.getElementById(this.weight_attribute) as HTMLInputElement;
+    if(active!=null){active.checked = true}
 
     return;
   }
@@ -507,22 +513,44 @@ export class Model{
     }
 
     // add no. of children button
-    let element = document.createElement("a");
-    element.appendChild(document.createTextNode('no. of children'));
-    element.href = ("javascript:model.setWeightAttribute('children')");
+    let element = document.createElement("input");
+    element.onclick = (e) => model.setWeightAttribute('children');
+    element.type = "radio"
+    element.name = "attribute"
+    element.classList.add('radioButtons');
     element.classList.add('weightedattribute');
+    element.id = "children";
+    element.value = "children";
+
+    let label = document.createElement("label");
+    label.htmlFor = "children";
+    label.appendChild(document.createTextNode('no. of children'));
+    label.classList.add('weightedattribute');
+
     settings_element?.appendChild(element);
+    settings_element?.appendChild(label);
 
     //add a button for every available attribute
     let keys = Object.keys(leaf.data);
     for (let index = 0; index < keys.length; index++) {
       if(Number.isFinite(leaf.data[keys[index]]))
       {
-        let element = document.createElement("a");
-        element.appendChild(document.createTextNode(keys[index]));
-        element.href = ("javascript:model.setWeightAttribute('"+keys[index]+"')");
+        let element = document.createElement("input");
+        element.onclick = (e) => model.setWeightAttribute(keys[index]);
+        element.type = "radio"
+        element.name = "attribute"
+        element.classList.add('radioButtons');
         element.classList.add('weightedattribute');
+        element.id = keys[index];
+        element.value = keys[index];
+
+        let label = document.createElement("label");
+        label.htmlFor = keys[index];
+        label.classList.add('weightedattribute');
+        label.appendChild(document.createTextNode(keys[index]));
+
         settings_element?.appendChild(element);
+        settings_element?.appendChild(label);
       }
     }
   }
