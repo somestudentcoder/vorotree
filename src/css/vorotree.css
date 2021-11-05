@@ -55,6 +55,7 @@ body {
   padding: 0;
   margin: 0;
   height: 100%;
+  overflow: hidden;
 }
 
 .loading
@@ -75,6 +76,16 @@ body {
   z-index: 1;
 }
 
+.dropdown-content label {
+  font-family: Futura,Trebuchet MS,Arial,sans-serif;
+  font-size: 14px;
+  color: black;
+  padding: 1vh 1vw 1vh 1vw;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
 .dropdown-content a {
   font-family: Futura,Trebuchet MS,Arial,sans-serif;
   font-size: 14px;
@@ -85,16 +96,19 @@ body {
   text-align: left;
 }
 
-.dropdown-content input {
+/* .dropdown-content input {
   font-family: Futura,Trebuchet MS,Arial,sans-serif;
   font-size: 14px;
   color: black;
   padding: 1vh 1vw 1vh 1vw;
   text-decoration: none;
   display: block;
-}
+} */
+
+.dropdown-content label:hover {background-color: #ccffee}
 
 .dropdown-content a:hover {background-color: #ccffee}
+
 
 .dropdown:hover .dropdown-content {
   display: block;
@@ -105,4 +119,10 @@ body {
   display: block;
   padding-left: 0.5vw;
   padding-right: 0.5vw;
+}
+
+.radioButtons{
+  float: right;
+  margin: 1vh 1vw 1vh 1vw;
+  display: block;
 }
