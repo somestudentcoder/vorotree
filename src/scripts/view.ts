@@ -12,6 +12,7 @@ export class View{
   public app: PIXI.Application;
   public width: number;
   public height: number;
+  public offset: number;
 
   private model = window.model;
   private controller = window.controller;
@@ -31,7 +32,8 @@ export class View{
   {
     //init pixi
     this.width = window.innerWidth;
-    this.height = window.innerHeight;
+    this.offset = document.getElementById('site-header')?.offsetHeight as number;
+    this.height = window.innerHeight - this.offset;
     this.app = new PIXI.Application({width: this.width, height: this.height, resolution: window.devicePixelRatio,
       autoDensity: true, view: <HTMLCanvasElement>document.getElementById("theCanvas"), backgroundColor: 0xFFFFFF, resizeTo: window});
     document.body.appendChild(this.app.view)
@@ -173,8 +175,9 @@ export class View{
   resize()
   {
     view.app.resize();
-    view.height = view.app.view.height
-    view.width = view.app.view.width
+    console.log(view.offset)
+    view.height = view.app.view.height - view.offset;
+    view.width = view.app.view.width;
     view.resetViewItems();
 
     console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
@@ -185,7 +188,7 @@ export class View{
 
 
     view.viewport.clampZoom({maxWidth: view.width, maxHeight:view.height})
-    view.viewport.resize(view.app.view.width, view.app.view.height,view.app.view.width, view.app.view.height);
+    view.viewport.resize(view.width, view.height,view.width, view.height);
     //view.app.renderer.resize(view.width, view.height)
     view.viewport.scale.set(1)
 
