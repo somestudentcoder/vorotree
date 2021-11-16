@@ -175,21 +175,21 @@ export class View{
   resize()
   {
     view.app.resize();
-    console.log(view.offset)
+    // console.log(view.offset)
     view.offset = document.getElementById('site-header')?.offsetHeight as number;
-    console.log(view.offset)
+    // console.log(view.offset)
     view.height = view.app.view.height - view.offset;
     view.width = view.app.view.width;
     view.height /= window.devicePixelRatio;
     view.width /= window.devicePixelRatio;
-    console.log(window.devicePixelRatio)
+    // console.log(window.devicePixelRatio)
     view.resetViewItems();
 
-    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-    console.log("Width: " + view.width)
-    console.log("screenWidth: " + view.viewport.screenWidth)
-    console.log("worldWidth: " + view.viewport.worldWidth)
-    console.log("worldScreenWidth: " + view.viewport.worldScreenWidth)
+    // console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    // console.log("Width: " + view.width)
+    // console.log("screenWidth: " + view.viewport.screenWidth)
+    // console.log("worldWidth: " + view.viewport.worldWidth)
+    // console.log("worldScreenWidth: " + view.viewport.worldScreenWidth)
 
 
     view.viewport.clampZoom({maxWidth: view.width, maxHeight:view.height})
@@ -197,10 +197,10 @@ export class View{
     //view.app.renderer.resize(view.width, view.height)
     //view.viewport.scale.set(1)
 
-    console.log("screenWidth: " + view.viewport.screenWidth)
-    console.log("worldWidth: " + view.viewport.worldWidth)
-    console.log("worldScreenWidth: " + view.viewport.worldScreenWidth)
-    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    // console.log("screenWidth: " + view.viewport.screenWidth)
+    // console.log("worldWidth: " + view.viewport.worldWidth)
+    // console.log("worldScreenWidth: " + view.viewport.worldScreenWidth)
+    // console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     model.loadLastData();
   }
 
