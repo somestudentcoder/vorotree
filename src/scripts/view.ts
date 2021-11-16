@@ -176,8 +176,13 @@ export class View{
   {
     view.app.resize();
     console.log(view.offset)
+    view.offset = document.getElementById('site-header')?.offsetHeight as number;
+    console.log(view.offset)
     view.height = view.app.view.height - view.offset;
     view.width = view.app.view.width;
+    view.height /= window.devicePixelRatio;
+    view.width /= window.devicePixelRatio;
+    console.log(window.devicePixelRatio)
     view.resetViewItems();
 
     console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
@@ -190,7 +195,7 @@ export class View{
     view.viewport.clampZoom({maxWidth: view.width, maxHeight:view.height})
     view.viewport.resize(view.width, view.height,view.width, view.height);
     //view.app.renderer.resize(view.width, view.height)
-    view.viewport.scale.set(1)
+    //view.viewport.scale.set(1)
 
     console.log("screenWidth: " + view.viewport.screenWidth)
     console.log("worldWidth: " + view.viewport.worldWidth)
