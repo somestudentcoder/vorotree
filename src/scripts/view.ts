@@ -1,14 +1,9 @@
 import * as PIXI from 'pixi.js';
 import { Polygon } from './polygon';
-import { Point } from './point';
 import { Viewport } from 'pixi-viewport';
 
 
-import {HierarchyNode} from "d3-hierarchy";
-
 export class View{
-
-  //public renderer: PIXI.Renderer;
   public app: PIXI.Application;
   public width: number;
   public height: number;
@@ -65,7 +60,10 @@ export class View{
       .clamp({ direction: 'all' })
       .clampZoom({maxWidth: this.width, maxHeight:this.height})
 
+
     this.viewport.on('clicked', (e) => controller.polgyonClick(e.world.x, e.world.y));
+    // this.viewport.on('pinch-end', (e) => controller.zoomed(e));
+    this.viewport.on('wheel', (e) => controller.wheeled(e.wheel));
 
     this.text_list = [];
     this.active_shapes = [];
@@ -103,6 +101,7 @@ export class View{
         shape.buttonMode = true;
 
         shape.on('mouseover', function(){
+          controller.highlightedPolygon = shape;
           shape.alpha = 0.8;
           shape.polygon_parent.alpha = 0;
         });

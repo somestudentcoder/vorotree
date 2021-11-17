@@ -6,7 +6,6 @@ import { voronoiTreemap } from "d3-voronoi-treemap";
 import {csvParse} from "d3-dsv";
 import chroma = require('chroma-js');
 import dirTree = require('directory-tree');
-import { lab } from 'chroma-js';
 
 var seedrandom = require('seedrandom');
 let AQUAMARINE = chroma.scale(['#80ff80', '#80ff9f', '#80ffbf', '#7fffd4', '#80ffdf', '#80ffff', '#80dfff', '#80bfff']);
