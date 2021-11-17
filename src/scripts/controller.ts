@@ -1,10 +1,11 @@
 import { Polygon } from './polygon';
-import { Viewport } from 'pixi-viewport';
 import * as PIXI from 'pixi.js';
 
 export class Controller{
 
   private view = window.view;
+  
+  public highlightedPolygon: Polygon = {} as Polygon;
 
   constructor()
   {
@@ -45,15 +46,36 @@ export class Controller{
         return;
       }
     }
+    
+    this.zoomOutToParent()
+
+    return;
+  }
+
+  zoomOutToParent(){
     let parent = model.current_root_polygon.polygon_parent;
     let size_ratio = this.calculateZoomFactor(parent)
     view.viewport.snapZoom({removeOnComplete: true, height: view.viewport.worldScreenHeight * size_ratio, center: new PIXI.Point(parent.center.x, parent.center.y), time: 1200, removeOnInterrupt: true});
     view.zoom_factor *= size_ratio;
     model.current_root_polygon = parent;
     view.showTreemap(model.current_root_polygon);
+  }
 
+  wheeled(e: any)
+  {
+    console.log(view.zoom_factor)
 
-    return;
+    if(e.dy < 0){
+      this.polgyonClick(this.highlightedPolygon.center.x, this.highlightedPolygon.center.y);
+    }
+    else if(model.current_root_polygon != model.root_polygon)
+    {
+      this.zoomOutToParent();
+    }
+    else{
+      return;
+    }
+    console.log(view.zoom_factor)
   }
 
   calculateZoomFactor(polygon: Polygon){
