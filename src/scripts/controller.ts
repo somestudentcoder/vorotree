@@ -63,7 +63,7 @@ export class Controller{
 
   wheeled(e: any)
   {
-    console.log(view.zoom_factor)
+    // console.log(view.zoom_factor)
 
     if(e.dy < 0){
       this.polgyonClick(this.highlightedPolygon.center.x, this.highlightedPolygon.center.y);
@@ -75,7 +75,7 @@ export class Controller{
     else{
       return;
     }
-    console.log(view.zoom_factor)
+    // console.log(view.zoom_factor)
   }
 
   calculateZoomFactor(polygon: Polygon){
