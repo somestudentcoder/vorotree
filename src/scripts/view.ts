@@ -10,11 +10,9 @@ export class View{
   public offset: number;
 
   private model = window.model;
-  private controller = window.controller;
   private text_list: Array<PIXI.Text>;
   private active_shapes: Array<Polygon>;
   private root_outline: Polygon;
-  public active_parent_index: number;
   public zoom_factor: number = 1;
 
   public viewport: Viewport;
@@ -61,13 +59,12 @@ export class View{
       .clampZoom({maxWidth: this.width, maxHeight:this.height})
 
 
-    this.viewport.on('clicked', (e) => controller.polgyonClick(e.world.x, e.world.y));
+    this.viewport.on('clicked', (e) => controller.polgyonClick(controller.highlightedPolygon));
     // this.viewport.on('pinch-end', (e) => controller.zoomed(e));
     this.viewport.on('wheel', (e) => controller.wheeled(e.wheel));
 
     this.text_list = [];
     this.active_shapes = [];
-    this.active_parent_index = {} as number;
     this.root_outline = new Polygon();
 
     this.app.renderer.render(this.app.stage);

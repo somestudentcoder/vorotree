@@ -14,50 +14,29 @@ export class Controller{
       model.computeVoronoi(actualInput.files);
     })
 
-    // const folderSelector = <HTMLInputElement>document.getElementById("folderPath");
-    // folderSelector.addEventListener("change", function(){
-    //   model.constructTreeFromFileSystem(folderSelector.value);
-    // })
-
     document.getElementById("chooseFile")?.addEventListener("click", function(){actualInput.click();})
   }
  
-  polgyonClick(x: number, y:number)
+  polgyonClick(target: Polygon)
   {
-    for(let polygon of model.current_root_polygon.polygon_children)
-    {
-      if (polygon.hitArea.contains(x, y)) {
-        if(polygon.polygon_children.length == 0)
-        {
-          if(polygon.name.indexOf('.') > -1)
-          {
-            window.alert(polygon.path)
-          }
-          return;
-        }
-        if (polygon.polygon_parent == model.root_polygon) {
-          view.active_parent_index = model.current_root_polygon.polygon_children.indexOf(polygon);
-        }
-        let size_ratio = this.calculateZoomFactor(polygon)
-        view.viewport.snapZoom({removeOnComplete: true, height: view.viewport.worldScreenHeight * size_ratio, center: new PIXI.Point(polygon.center.x, polygon.center.y), time: 1200, removeOnInterrupt: true});
-        view.zoom_factor *= size_ratio;
-        model.current_root_polygon = polygon;
-        view.showTreemap(model.current_root_polygon);
+    if(model.current_root_polygon.polygon_children.includes(target)){
+      if(target.polygon_children.length == 0){
         return;
       }
+      this.moveTo(target)
+      return;
     }
-    
-    this.zoomOutToParent()
-
-    return;
+    else if(model.current_root_polygon != model.root_polygon){
+      this.moveTo(model.current_root_polygon.polygon_parent);
+      return;
+    }
   }
 
-  zoomOutToParent(){
-    let parent = model.current_root_polygon.polygon_parent;
-    let size_ratio = this.calculateZoomFactor(parent)
-    view.viewport.snapZoom({removeOnComplete: true, height: view.viewport.worldScreenHeight * size_ratio, center: new PIXI.Point(parent.center.x, parent.center.y), time: 1200, removeOnInterrupt: true});
+  moveTo(target: Polygon){
+    let size_ratio = this.calculateZoomFactor(target)
+    view.viewport.snapZoom({removeOnComplete: true, height: view.viewport.worldScreenHeight * size_ratio, center: new PIXI.Point(target.center.x, target.center.y), time: 1200, removeOnInterrupt: true});
     view.zoom_factor *= size_ratio;
-    model.current_root_polygon = parent;
+    model.current_root_polygon = target;
     view.showTreemap(model.current_root_polygon);
   }
 
@@ -66,11 +45,11 @@ export class Controller{
     // console.log(view.zoom_factor)
 
     if(e.dy < 0){
-      this.polgyonClick(this.highlightedPolygon.center.x, this.highlightedPolygon.center.y);
+      this.polgyonClick(controller.highlightedPolygon);
     }
     else if(model.current_root_polygon != model.root_polygon)
     {
-      this.zoomOutToParent();
+      this.polgyonClick({} as Polygon)
     }
     else{
       return;
