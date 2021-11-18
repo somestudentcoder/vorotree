@@ -59,7 +59,7 @@ export class View{
       .clampZoom({maxWidth: this.width, maxHeight:this.height})
 
 
-    this.viewport.on('clicked', (e) => controller.polgyonClick(controller.highlightedPolygon));
+    this.viewport.on('clicked', (e) => controller.polgyonClick(e.world.x, e.world.y));
     // this.viewport.on('pinch-end', (e) => controller.zoomed(e));
     this.viewport.on('wheel', (e) => controller.wheeled(e.wheel));
 
@@ -171,21 +171,13 @@ export class View{
   resize()
   {
     view.app.resize();
-    // console.log(view.offset)
     view.offset = document.getElementById('site-header')?.offsetHeight as number;
-    // console.log(view.offset)
     view.height = view.app.view.height - view.offset;
     view.width = view.app.view.width;
     view.height /= window.devicePixelRatio;
     view.width /= window.devicePixelRatio;
-    // console.log(window.devicePixelRatio)
     view.resetViewItems();
 
-    // console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-    // console.log("Width: " + view.width)
-    // console.log("screenWidth: " + view.viewport.screenWidth)
-    // console.log("worldWidth: " + view.viewport.worldWidth)
-    // console.log("worldScreenWidth: " + view.viewport.worldScreenWidth)
 
 
     view.viewport.clampZoom({maxWidth: view.width, maxHeight:view.height})
@@ -193,10 +185,6 @@ export class View{
     //view.app.renderer.resize(view.width, view.height)
     //view.viewport.scale.set(1)
 
-    // console.log("screenWidth: " + view.viewport.screenWidth)
-    // console.log("worldWidth: " + view.viewport.worldWidth)
-    // console.log("worldScreenWidth: " + view.viewport.worldScreenWidth)
-    // console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     model.loadLastData();
   }
 

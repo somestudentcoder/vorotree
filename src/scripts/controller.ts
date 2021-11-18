@@ -17,16 +17,18 @@ export class Controller{
     document.getElementById("chooseFile")?.addEventListener("click", function(){actualInput.click();})
   }
  
-  polgyonClick(target: Polygon)
+  polgyonClick(x: number, y: number)
   {
-    if(model.current_root_polygon.polygon_children.includes(target)){
-      if(target.polygon_children.length == 0){
+    for(let child of model.current_root_polygon.polygon_children){
+      if (child.hitArea.contains(x, y)) {
+        if(child.polygon_children.length == 0){
+          return;
+        }
+        this.moveTo(child);
         return;
       }
-      this.moveTo(target)
-      return;
     }
-    else if(model.current_root_polygon != model.root_polygon){
+    if(model.current_root_polygon != model.root_polygon){
       this.moveTo(model.current_root_polygon.polygon_parent);
       return;
     }
@@ -45,11 +47,11 @@ export class Controller{
     // console.log(view.zoom_factor)
 
     if(e.dy < 0){
-      this.polgyonClick(controller.highlightedPolygon);
+      this.polgyonClick(controller.highlightedPolygon.center.x, controller.highlightedPolygon.center.y);
     }
     else if(model.current_root_polygon != model.root_polygon)
     {
-      this.polgyonClick({} as Polygon)
+      this.moveTo(model.current_root_polygon.polygon_parent);
     }
     else{
       return;
