@@ -20,6 +20,7 @@ export class Model{
   public lastFileRead: any;
   public fileReloadSelector: number = -1;
   public staticConstruction: boolean = true;
+  public staticFontSize: boolean = false;
   public seed: number = Math.random();
   public prng = seedrandom(this.seed);
   public weight_attribute: string = 'weight'; 
@@ -497,6 +498,10 @@ export class Model{
 
   setStaticConstruction(value: boolean){
     this.staticConstruction = value;
+  }
+
+  setFontSizeStatic(value: boolean){
+    this.staticFontSize = value;
   }
 
   setWeightAttribute(value: string){

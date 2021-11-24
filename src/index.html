@@ -43,10 +43,15 @@
                         <input onclick="javascript:view.setColorScheme(3)" type="radio" name="color" class="radioButtons" id="grayscale" value="grayscale">
                         <label for="grayscale">grayscale</label>
                     <div class="dropdowntitle">Cell Placement</div>
-                        <input onclick="javascript:model.setStaticConstruction(true)" type="radio" name="placement" class="radioButtons" id="static" value="static" checked="true">
-                        <label for="static">static</label>
-                        <input onclick="javascript:model.setStaticConstruction(false)" type="radio" name="placement" class="radioButtons" id="dynamic" value="dynamic">
-                        <label for="dynamic">dynamic</label>
+                        <input onclick="javascript:model.setStaticConstruction(true)" type="radio" name="placement" class="radioButtons" id="staticPlacement" value="staticPlacement" checked="true">
+                        <label for="staticPlacement">static</label>
+                        <input onclick="javascript:model.setStaticConstruction(false)" type="radio" name="placement" class="radioButtons" id="dynamicPlacement" value="dynamicPlacement">
+                        <label for="dynamicPlacement">dynamic</label>
+                    <div class="dropdowntitle">Font Size</div>
+                        <input onclick="javascript:model.setFontSizeStatic(true)" type="radio" name="font" class="radioButtons" id="staticFontSize" value="staticFontSize">
+                        <label for="staticFontSize">static</label>
+                        <input onclick="javascript:model.setFontSizeStatic(false)" type="radio" name="font" class="radioButtons" id="dynamicFontSize" value="dynamicFontSize" checked="true">
+                        <label for="dynamicFontSize">dynamic</label>
                     <div class="dropdowntitle">Weighted attribute</div>
                         <input onclick="javascript:model.setStaticConstruction(false)" type="radio" name="attribute" class="radioButtons, weightedattribute" id="children" value="children">
                         <label class="weightedattribute" for="children">no. of children</label>

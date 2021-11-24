@@ -136,7 +136,12 @@ export class View{
     {
       for(let polygon of root.polygon_children)
       {
-        let font_size = 1 + polygon.width / 11;
+        let font_size = undefined;
+        if(model.staticFontSize){
+          if(model.root_polygon == model.current_root_polygon){font_size = 25}
+          else {font_size = model.current_root_polygon.width * 0.04;}
+        }
+        else{font_size = 1 + polygon.width / 11;}
         let text = new PIXI.Text(polygon.name, {fill: 0xffffff,  stroke: 0x000000, strokeThickness: (0.5 + this.zoom_factor*1.5), fontSize: font_size});
         text.anchor.set(0.5);
         text.resolution = 2 * (1/this.zoom_factor);
