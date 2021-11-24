@@ -22,7 +22,7 @@
             
             <div class="dropdown">
                 <button class="navbtn" type="button">Examples</button>
-                <div class="dropdown-content">
+                <div class="dropdown-content" id="examples-dropdown">
                     <a href="javascript:model.loadExample(1)">World GDP (small - 2 deep)</a>
                     <a href="javascript:model.loadExample(2)">Car Manufacturers (small - 3 deep)</a>
                     <a href="javascript:model.loadExample(3)">Primates (deep-binary)</a>
@@ -33,8 +33,8 @@
             </div>
 
             <div class="dropdown">
-                <button class="navbtn" type="button">Settings</button>
-                <div class="dropdown-content" id="settings">
+                <button class="navbtn" type="button" id="settings-button">Settings</button>
+                <div class="dropdown-content" id="settings-dropdown">
                     <div class="dropdowntitle">Color</div>
                         <input onclick="javascript:view.setColorScheme(1)" type="radio" name="color" class="radioButtons" id="aquamarine" value="aquamarine" checked="true">
                         <label for="aquamarine">aquamarine</label>
@@ -53,7 +53,7 @@
                         <input onclick="javascript:model.setFontSizeStatic(false)" type="radio" name="font" class="radioButtons" id="dynamicFontSize" value="dynamicFontSize" checked="true">
                         <label for="dynamicFontSize">dynamic</label>
                     <div class="dropdowntitle">Weighted attribute</div>
-                        <input onclick="javascript:model.setStaticConstruction(false)" type="radio" name="attribute" class="radioButtons, weightedattribute" id="children" value="children">
+                        <input onclick="javascript:model.setWeightAttribute('children')" type="radio" name="attribute" class="radioButtons, weightedattribute" id="children" value="children">
                         <label class="weightedattribute" for="children">no. of children</label>
                 </div>
             </div>

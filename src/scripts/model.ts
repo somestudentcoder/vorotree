@@ -29,6 +29,8 @@ export class Model{
   loadExample(ex: number) {
     this.refresh();
     view.displayLoading(true);
+    let dropdown = document.getElementById('examples-dropdown') as HTMLElement;
+    dropdown.style.display = "none"; 
 
     if (ex == 1) {
       json('data/world_gdp.json')
@@ -40,6 +42,7 @@ export class Model{
         })
         .then(() => {
           view.displayLoading(false);
+          dropdown.style.display = "";
         }).catch(() => {
           window.alert("Could not load GDP example.");
         });
@@ -57,6 +60,7 @@ export class Model{
         })
         .then(() => {
           view.displayLoading(false);
+          dropdown.style.display = "";
         }).catch(() => {
           window.alert("Could not load Car example.");
         });
@@ -71,6 +75,7 @@ export class Model{
         })
         .then(() => {
           view.displayLoading(false);
+          dropdown.style.display = "";
         }).catch(() => {
           window.alert("Could not load Primate example.");
         });
@@ -88,6 +93,7 @@ export class Model{
         })
         .then(() => {
           view.displayLoading(false);
+          dropdown.style.display = "";
         }).catch(() => {
           window.alert("Could not load drug example.");
         });
@@ -105,6 +111,7 @@ export class Model{
         })
         .then(() => {
           view.displayLoading(false);
+          dropdown.style.display = "";
         }).catch(() => {
           window.alert("Could not load Wikipedia example.");
         });
@@ -119,6 +126,7 @@ export class Model{
         })
         .then(() => {
           view.displayLoading(false);
+          dropdown.style.display = "";
         }).catch(() => {
           window.alert("Could not load Google Taxonomy example.");
         });
@@ -510,7 +518,7 @@ export class Model{
   }
 
   setAttributeButtons(leaf: HierarchyNode<any>){
-    let settings_element = document.getElementById('settings');
+    let settings_element = document.getElementById('settings-dropdown');
     let oldbuttons = document.getElementsByClassName('weightedattribute');
     while(oldbuttons.length > 0){
       settings_element?.removeChild(oldbuttons[0]);
