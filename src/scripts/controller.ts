@@ -16,7 +16,7 @@ export class Controller{
 
     document.getElementById("chooseFile")?.addEventListener("click", function(){actualInput.click();})
 
-    // in case i want to use the settings button
+    // in case i want to use the settings button i'll need to expand on this
     // document.getElementById("settings-button")?.addEventListener("click", function(){
     //   let element = document.getElementById('settings-dropdown') as HTMLElement;
     //   if(element.style.display == "block"){element.style.display = "none";}
