@@ -1,6 +1,8 @@
 import { Polygon } from './polygon';
 import * as PIXI from 'pixi.js';
 
+let ZOOMWIDTHRATIO = 0.65;
+
 export class Controller{
 
   private view = window.view;
@@ -15,6 +17,13 @@ export class Controller{
     })
 
     document.getElementById("chooseFile")?.addEventListener("click", function(){actualInput.click();})
+
+    // in case i want to use the settings button i'll need to expand on this
+    // document.getElementById("settings-button")?.addEventListener("click", function(){
+    //   let element = document.getElementById('settings-dropdown') as HTMLElement;
+    //   if(element.style.display == "block"){element.style.display = "none";}
+    //   else{element.style.display = "block";}
+    // })
   }
  
   polgyonClick(x: number, y: number)
@@ -35,28 +44,55 @@ export class Controller{
   }
 
   moveTo(target: Polygon){
-    let size_ratio = this.calculateZoomFactor(target)
-    view.viewport.snapZoom({removeOnComplete: true, height: view.viewport.worldScreenHeight * size_ratio, center: new PIXI.Point(target.center.x, target.center.y), time: 1200, removeOnInterrupt: true});
-    view.zoom_factor *= size_ratio;
-    model.current_root_polygon = target;
+    let ratio = this.calculateZoomFactor(target)
+    view.viewport.snapZoom({removeOnComplete: true, height: view.viewport.worldScreenHeight * ratio, center: new PIXI.Point(target.center.x, target.center.y), time: 1200, removeOnInterrupt: true});
+    this.setZoomFactor(target, ratio);
     view.showTreemap(model.current_root_polygon);
   }
 
-  wheeled(e: any)
-  {
-    // console.log(view.zoom_factor)
-
+  wheeled(e: any){
     if(e.dy < 0){
-      this.polgyonClick(controller.highlightedPolygon.center.x, controller.highlightedPolygon.center.y);
+      let target: Polygon = {} as Polygon;
+      for(let child of model.current_root_polygon.polygon_children){
+        if (child.hitArea.contains(view.viewport.center.x, view.viewport.center.y)) {
+          if(child.polygon_children.length == 0){
+            break;
+          }
+          target = child;
+          break;
+        }
+      }
+    
+      // console.log(target.name)
+      // console.log(target.width)
+      // console.log(view.viewport.screenWidthInWorldPixels * ZOOMWIDTHRATIO)
+      // console.log('=============================')
+
+      if(target != null
+        && (view.viewport.screenWidthInWorldPixels * ZOOMWIDTHRATIO < target.width
+            || view.viewport.screenWidthInWorldPixels == view.width)){
+        let ratio = this.calculateZoomFactor(target)
+        this.setZoomFactor(target, ratio)
+        view.showTreemap(target);
+      }
     }
-    else if(model.current_root_polygon != model.root_polygon)
+    else if(model.current_root_polygon != model.root_polygon
+      && view.viewport.screenWidthInWorldPixels * ZOOMWIDTHRATIO > model.current_root_polygon.width)
     {
-      this.moveTo(model.current_root_polygon.polygon_parent);
+      let ratio = this.calculateZoomFactor(model.current_root_polygon.polygon_parent)
+      this.setZoomFactor(model.current_root_polygon.polygon_parent, ratio)
+      view.showTreemap(model.current_root_polygon);
+    }
+  }
+
+  setZoomFactor(target: Polygon, ratio: number){
+    if(target == model.root_polygon){
+      view.zoom_factor = 1
     }
     else{
-      return;
+      view.zoom_factor = (view.viewport.screenWidthInWorldPixels * ratio) / view.width;
     }
-    // console.log(view.zoom_factor)
+    model.current_root_polygon = target;
   }
 
   calculateZoomFactor(polygon: Polygon){
