@@ -5,8 +5,8 @@ let ZOOMWIDTHRATIO = 0.65;
 
 export class Controller{
 
-  private view = window.view;
-  
+  private lastPinchWidth: number = view.width;
+
   public highlightedPolygon: Polygon = {} as Polygon;
 
   constructor()
@@ -48,6 +48,17 @@ export class Controller{
     view.viewport.snapZoom({removeOnComplete: true, height: view.viewport.worldScreenHeight * ratio, center: new PIXI.Point(target.center.x, target.center.y), time: 1200, removeOnInterrupt: true});
     this.setZoomFactor(target, ratio);
     view.showTreemap(model.current_root_polygon);
+  }
+
+  pinchStart(){
+    this.lastPinchWidth = view.viewport.screenWidthInWorldPixels; 
+  }
+
+  pinched(){
+    let dimensions = {
+      dy: view.viewport.screenWidthInWorldPixels - this.lastPinchWidth
+    };
+    this.wheeled(dimensions);
   }
 
   wheeled(e: any){
