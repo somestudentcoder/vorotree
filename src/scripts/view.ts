@@ -84,7 +84,7 @@ export class View{
       shape.clear();
 
       shape.beginFill(shape.color[this.color_selector]);
-      shape.lineStyle(3 * this.zoom_factor,0,1,0,false);
+      shape.lineStyle(2 * this.zoom_factor,0,1,0,false);
       shape.drawPolygon(coord_list);
       shape.endFill();
 
@@ -142,7 +142,7 @@ export class View{
           else {font_size = model.current_root_polygon.width * 0.04;}
         }
         else{font_size = 1 + polygon.width / 11;}
-        let text = new PIXI.Text(polygon.name, {fill: 0xffffff,  stroke: 0x000000, strokeThickness: (0.5 + this.zoom_factor*1.5), fontSize: font_size});
+        let text = new PIXI.Text(polygon.name, {fill: 0xffffff,  stroke: 0x000000, strokeThickness: (0.25 + this.zoom_factor), fontSize: font_size});
         text.anchor.set(0.5);
         text.resolution = 2 * (1/this.zoom_factor);
         text.position.set(polygon.center.x, polygon.center.y);
@@ -272,7 +272,7 @@ export class View{
       coord_list.push(element.x);
       coord_list.push(element.y);
     }
-    this.root_outline.lineStyle((3*this.zoom_factor) + 2,0,1,0,false);
+    this.root_outline.lineStyle(5 * this.zoom_factor,0,1,0,false);
     this.root_outline.drawPolygon(coord_list);
     this.active_shapes.push(this.root_outline);
     this.viewport.addChild(this.root_outline);
