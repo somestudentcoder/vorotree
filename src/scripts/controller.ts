@@ -50,8 +50,7 @@ export class Controller{
     view.showTreemap(model.current_root_polygon);
   }
 
-  wheeled(e: any)
-  {
+  wheeled(e: any){
     if(e.dy < 0){
       let target: Polygon = {} as Polygon;
       for(let child of model.current_root_polygon.polygon_children){

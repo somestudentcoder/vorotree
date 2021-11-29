@@ -60,7 +60,7 @@ export class View{
 
 
     this.viewport.on('clicked', (e) => controller.polgyonClick(e.world.x, e.world.y));
-    // this.viewport.on('pinch-end', (e) => controller.zoomed(e));
+    this.viewport.on('pinch-end', (e) => controller.wheeled(e.wheel));
     this.viewport.on('wheel', (e) => controller.wheeled(e.wheel));
 
     this.text_list = [];
