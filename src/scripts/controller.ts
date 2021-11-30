@@ -53,19 +53,12 @@ export class Controller{
 
   pinchStart(){
     this.lastPinchWidth = view.viewport.screenWidthInWorldPixels;
-    console.log("Pinch start!")
-    console.log("Last Pinch:",this.lastPinchWidth)
-    console.log("vvvvvvvvvvvvvvvvvvvvvv")
   }
 
   pinched(){
     let dimensions = {
       dy: view.viewport.screenWidthInWorldPixels - this.lastPinchWidth
     };
-    console.log("pinched!")
-    console.log("Last Pinch:", this.lastPinchWidth)
-    console.log("Width: ", view.viewport.screenWidthInWorldPixels)
-    console.log("Difference: ",dimensions);
     this.wheeled(dimensions);
   }
 
@@ -81,12 +74,6 @@ export class Controller{
           break;
         }
       }
-    
-      // console.log(target.name)
-      // console.log(target.width)
-      // console.log(view.viewport.screenWidthInWorldPixels * ZOOMDIMENSIONRATIO)
-      // console.log('=============================')
-
     if(target != null){
         if((view.width > view.height &&
           view.viewport.screenWidthInWorldPixels * ZOOMDIMENSIONRATIO < target.width)
