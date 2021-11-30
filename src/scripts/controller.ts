@@ -52,13 +52,20 @@ export class Controller{
   }
 
   pinchStart(){
-    this.lastPinchWidth = view.viewport.screenWidthInWorldPixels; 
+    this.lastPinchWidth = view.viewport.screenWidthInWorldPixels;
+    console.log("Pinch start!")
+    console.log("Last Pinch:",this.lastPinchWidth)
+    console.log("vvvvvvvvvvvvvvvvvvvvvv")
   }
 
   pinched(){
     let dimensions = {
       dy: view.viewport.screenWidthInWorldPixels - this.lastPinchWidth
     };
+    console.log("pinched!")
+    console.log("Last Pinch:", this.lastPinchWidth)
+    console.log("Width: ", view.viewport.screenWidthInWorldPixels)
+    console.log("Difference: ",dimensions);
     this.wheeled(dimensions);
   }
 
