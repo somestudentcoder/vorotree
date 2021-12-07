@@ -19,12 +19,22 @@ export class Controller{
 
     document.getElementById("chooseFile")?.addEventListener("click", function(){actualInput.click();})
 
-    // in case i want to use the settings button i'll need to expand on this
-    // document.getElementById("settings-button")?.addEventListener("click", function(){
-    //   let element = document.getElementById('settings-dropdown') as HTMLElement;
-    //   if(element.style.display == "block"){element.style.display = "none";}
-    //   else{element.style.display = "block";}
-    // })
+    document.getElementById("examples-button")?.addEventListener("click", function () {
+      let element = document.getElementById('examples-dropdown') as HTMLElement
+      if(element.style.display != "block"){
+        let otherelement = document.getElementById('settings-dropdown') as HTMLElement;
+        otherelement.style.display = "none"
+        element.style.display = "block"}
+      else{element.style.display = "none"}
+    })
+    document.getElementById("settings-button")?.addEventListener("click", function () {
+      let element = document.getElementById('settings-dropdown') as HTMLElement
+      if(element.style.display != "block"){
+        let otherelement = document.getElementById('examples-dropdown') as HTMLElement;
+        otherelement.style.display = "none"
+        element.style.display = "block"}
+      else{element.style.display = "none"}
+    })
   }
  
   polgyonClick(x: number, y: number)
