@@ -2,7 +2,7 @@ import { Polygon } from './polygon';
 import * as PIXI from 'pixi.js';
 
 //this decides how large a polygon must be on screen to be entered. (using wheel/pinch)
-let ZOOMDIMENSIONRATIO = 0.65;
+let ZOOMDIMENSIONRATIO = 0.50;
 
 export class Controller{
 
@@ -59,14 +59,14 @@ export class Controller{
     let dimensions = {
       dy: view.viewport.screenWidthInWorldPixels - this.lastPinchWidth
     };
-    this.wheeled(dimensions);
+    this.wheeled(dimensions, view.viewport.center.x, view.viewport.center.y);
   }
 
-  wheeled(e: any){
+  wheeled(e: any, x: number, y: number){
     if(e.dy < 0){
       let target: Polygon = {} as Polygon;
       for(let child of model.current_root_polygon.polygon_children){
-        if (child.hitArea.contains(view.viewport.center.x, view.viewport.center.y)) {
+        if (child.hitArea.contains(x, y)) {
           if(child.polygon_children.length == 0){
             break;
           }
@@ -74,7 +74,7 @@ export class Controller{
           break;
         }
       }
-    if(target != null){
+      if(target != null){
         if((view.width > view.height &&
           view.viewport.screenWidthInWorldPixels * ZOOMDIMENSIONRATIO < target.width)
           || 
