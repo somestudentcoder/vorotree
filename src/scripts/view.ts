@@ -62,7 +62,7 @@ export class View{
     this.viewport.on('clicked', (e) => controller.polgyonClick(e.world.x, e.world.y));
     this.viewport.on('pinch-start', (e) => controller.pinchStart());
     this.viewport.on('pinch-end', (e) => controller.pinched());
-    this.viewport.on('wheel', (e) => controller.wheeled(e.wheel));
+    this.viewport.on('wheel', (e) => controller.wheeled(e.wheel, controller.highlightedPolygon.center.x, controller.highlightedPolygon.center.y));
 
     this.text_list = [];
     this.active_shapes = [];
