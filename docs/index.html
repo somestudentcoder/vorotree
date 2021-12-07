@@ -21,7 +21,7 @@
 
             
             <div class="dropdown">
-                <button class="navbtn" type="button">Examples</button>
+                <button class="navbtn" type="button" id="examples-button">Examples</button>
                 <div class="dropdown-content" id="examples-dropdown">
                     <a href="javascript:model.loadExample(1)">World GDP (small - 2 deep)</a>
                     <a href="javascript:model.loadExample(2)">Car Manufacturers (small - 3 deep)</a>
@@ -53,7 +53,7 @@
                         <input onclick="javascript:model.setFontSizeStatic(false)" type="radio" name="font" class="radioButtons" id="dynamicFontSize" value="dynamicFontSize" checked="true">
                         <label for="dynamicFontSize">dynamic</label>
                     <div class="dropdowntitle">Weighted attribute</div>
-                        <input onclick="javascript:model.setWeightAttribute('children')" type="radio" name="attribute" class="radioButtons, weightedattribute" id="children" value="children">
+                        <input onclick="javascript:model.setWeightAttribute('children')" type="radio" name="attribute" class="radioButtons weightedattribute" id="children" value="children">
                         <label class="weightedattribute" for="children">no. of children</label>
                 </div>
             </div>

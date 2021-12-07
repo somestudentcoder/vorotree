@@ -41,7 +41,6 @@ export class Model{
         })
         .then(() => {
           view.displayLoading(false);
-          dropdown.style.display = "";
         }).catch(() => {
           window.alert("Could not load GDP example.");
         });
@@ -59,7 +58,6 @@ export class Model{
         })
         .then(() => {
           view.displayLoading(false);
-          dropdown.style.display = "";
         }).catch(() => {
           window.alert("Could not load Car example.");
         });
@@ -74,7 +72,6 @@ export class Model{
         })
         .then(() => {
           view.displayLoading(false);
-          dropdown.style.display = "";
         }).catch(() => {
           window.alert("Could not load Primate example.");
         });
@@ -92,7 +89,6 @@ export class Model{
         })
         .then(() => {
           view.displayLoading(false);
-          dropdown.style.display = "";
         }).catch(() => {
           window.alert("Could not load drug example.");
         });
@@ -110,7 +106,6 @@ export class Model{
         })
         .then(() => {
           view.displayLoading(false);
-          dropdown.style.display = "";
         }).catch(() => {
           window.alert("Could not load Wikipedia example.");
         });
@@ -125,7 +120,6 @@ export class Model{
         })
         .then(() => {
           view.displayLoading(false);
-          dropdown.style.display = "";
         }).catch(() => {
           window.alert("Could not load Google Taxonomy example.");
         });
