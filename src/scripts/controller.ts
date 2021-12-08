@@ -1,5 +1,6 @@
 import { Polygon } from './polygon';
 import * as PIXI from 'pixi.js';
+import { desktopCapturer } from 'electron';
 
 //this decides how large a polygon must be on screen to be entered. (using wheel/pinch)
 let ZOOMDIMENSIONRATIO = 0.50;
@@ -52,6 +53,21 @@ export class Controller{
       this.moveTo(model.current_root_polygon.polygon_parent);
       return;
     }
+  }
+
+  takeSVGshot(){
+    let screenshot = view.constructSVG();
+    this.downloadImage("screenshot.svg", screenshot);
+  }
+
+  downloadImage(name: string, href: any){
+    var link = document.createElement('a');
+    link.download = name;
+    link.style.opacity = '0';
+    link.href = "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(href);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
   moveTo(target: Polygon){

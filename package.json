@@ -46,6 +46,7 @@
     "path-browserify": "^1.0.1",
     "pixi-viewport": "^4.34.1",
     "pixi.js": "^6.2.0",
-    "seedrandom": "^3.0.5"
+    "seedrandom": "^3.0.5",
+    "svgcanvas": "^2.0.5"
   }
 }
