@@ -7,66 +7,70 @@
         <link rel="icon" href="favicon.ico" type="image/x-icon">
     </head>
 
-    <header id="site-header" class="site-header">
-        <nav class="nav">
-            <button class="navbtn" type="button" id="chooseFile">Open File</button>
-            <input type="file" id="loadFile" name="loadfile" accept=".csv, .json">
+    <header id="site-header" class="site-header row">
+        <div>
+            <nav class="nav">
+                <button class="navbtn" type="button" id="chooseFile">Open File</button>
+                <input type="file" id="loadFile" name="loadfile" accept=".csv, .json">
 
-            <!-- <div class="dropdown">
-                <button class="navbtn" type="button">Select Path</button>
-                <div class="dropdown-content">
-                    <input type="text" id="folderPath">
+                <!-- <div class="dropdown">
+                    <button class="navbtn" type="button">Select Path</button>
+                    <div class="dropdown-content">
+                        <input type="text" id="folderPath">
+                    </div>
+                </div> -->
+
+                
+                <div class="dropdown">
+                    <button class="navbtn" type="button" id="examples-button">Examples</button>
+                    <div class="dropdown-content" id="examples-dropdown">
+                        <a href="javascript:model.loadExample(1)">World GDP (small - 2 deep)</a>
+                        <a href="javascript:model.loadExample(2)">Car Manufacturers (small - 3 deep)</a>
+                        <a href="javascript:model.loadExample(3)">Primates (deep-binary)</a>
+                        <a href="javascript:model.loadExample(4)">Drug Classification (medium - 3 deep)</a>
+                        <a href="javascript:model.loadExample(5)">Wikipedia Geoeditors (large - 2 deep)</a>
+                        <a href="javascript:model.loadExample(6)">Google Taxnonomy (large - 8 deep)</a>
+                    </div>
                 </div>
-            </div> -->
 
-            
-            <div class="dropdown">
-                <button class="navbtn" type="button" id="examples-button">Examples</button>
-                <div class="dropdown-content" id="examples-dropdown">
-                    <a href="javascript:model.loadExample(1)">World GDP (small - 2 deep)</a>
-                    <a href="javascript:model.loadExample(2)">Car Manufacturers (small - 3 deep)</a>
-                    <a href="javascript:model.loadExample(3)">Primates (deep-binary)</a>
-                    <a href="javascript:model.loadExample(4)">Drug Classification (medium - 3 deep)</a>
-                    <a href="javascript:model.loadExample(5)">Wikipedia Geoeditors (large - 2 deep)</a>
-                    <a href="javascript:model.loadExample(6)">Google Taxnonomy (large - 8 deep)</a>
+                <div class="dropdown">
+                    <button class="navbtn" type="button" id="settings-button">Settings</button>
+                    <div class="dropdown-content" id="settings-dropdown">
+                        <a href="javascript:controller.takeSVGshot()">SVG export</a>
+                        <a href="javascript:controller.toggleBreadcrumbs()" id="breadcrumb-btn">Activate Breadcrumbs</a>
+                        <div class="dropdowntitle">Color</div>
+                            <input onclick="javascript:view.setColorScheme(1)" type="radio" name="color" class="radioButtons" id="aquamarine" value="aquamarine" checked="true">
+                            <label for="aquamarine">aquamarine</label>
+                            <input onclick="javascript:view.setColorScheme(2)" type="radio" name="color" class="radioButtons" id="rainbow" value="rainbow">
+                            <label for="rainbow">rainbow</label>
+                            <input onclick="javascript:view.setColorScheme(3)" type="radio" name="color" class="radioButtons" id="grayscale" value="grayscale">
+                            <label for="grayscale">grayscale</label>
+                        <div class="dropdowntitle">Cell Placement</div>
+                            <input onclick="javascript:model.setStaticConstruction(true)" type="radio" name="placement" class="radioButtons" id="staticPlacement" value="staticPlacement" checked="true">
+                            <label for="staticPlacement">static</label>
+                            <input onclick="javascript:model.setStaticConstruction(false)" type="radio" name="placement" class="radioButtons" id="dynamicPlacement" value="dynamicPlacement">
+                            <label for="dynamicPlacement">dynamic</label>
+                        <div class="dropdowntitle">Font Size</div>
+                            <input onclick="javascript:model.setFontSizeStatic(true)" type="radio" name="font" class="radioButtons" id="staticFontSize" value="staticFontSize">
+                            <label for="staticFontSize">static</label>
+                            <input onclick="javascript:model.setFontSizeStatic(false)" type="radio" name="font" class="radioButtons" id="dynamicFontSize" value="dynamicFontSize" checked="true">
+                            <label for="dynamicFontSize">dynamic</label>
+                        <div class="dropdowntitle">Weighted attribute</div>
+                            <input onclick="javascript:model.setWeightAttribute('children')" type="radio" name="attribute" class="radioButtons weightedattribute" id="children" value="children">
+                            <label class="weightedattribute" for="children">no. of children</label>
+                    </div>
                 </div>
-            </div>
+                
 
-            <div class="dropdown">
-                <button class="navbtn" type="button" id="settings-button">Settings</button>
-                <div class="dropdown-content" id="settings-dropdown">
-                    <a href="javascript:controller.takeSVGshot()">SVG export</a>
-                    <div class="dropdowntitle">Color</div>
-                        <input onclick="javascript:view.setColorScheme(1)" type="radio" name="color" class="radioButtons" id="aquamarine" value="aquamarine" checked="true">
-                        <label for="aquamarine">aquamarine</label>
-                        <input onclick="javascript:view.setColorScheme(2)" type="radio" name="color" class="radioButtons" id="rainbow" value="rainbow">
-                        <label for="rainbow">rainbow</label>
-                        <input onclick="javascript:view.setColorScheme(3)" type="radio" name="color" class="radioButtons" id="grayscale" value="grayscale">
-                        <label for="grayscale">grayscale</label>
-                    <div class="dropdowntitle">Cell Placement</div>
-                        <input onclick="javascript:model.setStaticConstruction(true)" type="radio" name="placement" class="radioButtons" id="staticPlacement" value="staticPlacement" checked="true">
-                        <label for="staticPlacement">static</label>
-                        <input onclick="javascript:model.setStaticConstruction(false)" type="radio" name="placement" class="radioButtons" id="dynamicPlacement" value="dynamicPlacement">
-                        <label for="dynamicPlacement">dynamic</label>
-                    <div class="dropdowntitle">Font Size</div>
-                        <input onclick="javascript:model.setFontSizeStatic(true)" type="radio" name="font" class="radioButtons" id="staticFontSize" value="staticFontSize">
-                        <label for="staticFontSize">static</label>
-                        <input onclick="javascript:model.setFontSizeStatic(false)" type="radio" name="font" class="radioButtons" id="dynamicFontSize" value="dynamicFontSize" checked="true">
-                        <label for="dynamicFontSize">dynamic</label>
-                    <div class="dropdowntitle">Weighted attribute</div>
-                        <input onclick="javascript:model.setWeightAttribute('children')" type="radio" name="attribute" class="radioButtons weightedattribute" id="children" value="children">
-                        <label class="weightedattribute" for="children">no. of children</label>
-                </div>
-            </div>
-            
-            
-            
+                <button class="navbtn" type="button" id="reset" onclick=view.resetViewpoint()>Reset View</button>
 
-            <button class="navbtn" type="button" id="reset" onclick=view.resetViewpoint()>Reset View</button>
-
-            <text class="loading" id="loading">LOADING...</text>
-        </nav>
-        <div id="name">VoroTree</div>
+                <text class="loading" id="loading">LOADING...</text>
+            </nav>
+            <div id="name">VoroTree</div>
+        </div>
+        <div id="breadcrumb-bar">
+            <div id="breadcrumbs"></div>
+        </div>
     </header>
 
     <body>

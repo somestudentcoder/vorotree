@@ -319,6 +319,28 @@ export class View{
     }
   }
 
+  updateBreadcrumbs(){
+    let breadcrumbs = <HTMLElement> document.getElementById('breadcrumbs');
+    breadcrumbs.innerHTML = "";
+    let hierarchy: Array<Polygon>
+    hierarchy = []
+    for (let node = model.current_root_polygon; node != model.root_polygon;) {
+      hierarchy.push(node);
+      node = node.polygon_parent;
+    }
+    breadcrumbs.innerHTML += "<a href='javascript:controller.moveTo(model.root_polygon)'>Home</a>";
+    breadcrumbs.innerHTML += "<div class='breadcrumb__separator'>/</div>";
+    while(hierarchy.length > 0){
+      let node = hierarchy.pop();
+      let parameter = 'model.current_root_polygon';
+      for (let index = hierarchy.length; index > 0; index--) {
+        parameter += '.polygon_parent';        
+      }
+      breadcrumbs.innerHTML += "<a href='javascript:controller.moveTo(" + parameter + ")'>" + node?.name + "</a>";
+      breadcrumbs.innerHTML += "<div class='breadcrumb__separator'>/</div>";
+    }
+  }
+
   showTreemap(root: Polygon){
     //cleanup
     for(let shape of this.active_shapes)
@@ -358,6 +380,7 @@ export class View{
     }
     this.drawLabels(root);
     this.app.renderer.render(this.app.stage)
+    if(controller.breadcrumbsActive){this.updateBreadcrumbs();}
     this.displayLoading(false)
   }
 
