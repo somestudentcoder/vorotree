@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { Polygon } from './polygon';
 import { Viewport } from 'pixi-viewport';
+import { Context } from 'svgcanvas';
 
 
 export class View{
@@ -218,6 +219,104 @@ export class View{
     view.viewport.removeChildren();
     view.app.renderer.render(view.app.stage);
     view.showTreemap(model.root_polygon)
+  }
+
+  constructSVG(){
+    let ctx = new Context(this.width, this.height)
+
+    
+    if(model.current_root_polygon != model.root_polygon && model.current_root_polygon.polygon_parent != model.root_polygon)
+    {
+      let list = [...model.root_polygon.polygon_children];
+      this.drawSVGPolygons(list, true, ctx);
+    }
+
+    if (Object.keys(model.current_root_polygon.polygon_parent).length !== 0){
+      this.drawSVGPolygons(model.current_root_polygon.polygon_parent.polygon_children, true, ctx);
+    }
+    if (model.current_root_polygon.polygon_children.length != 0) {
+      this.drawSVGPolygons(model.current_root_polygon.polygon_children, true, ctx);
+      for(let child of model.current_root_polygon.polygon_children){
+        if (child.polygon_children.length != 0) {
+          this.drawSVGPolygons(child.polygon_children, false, ctx);
+        }
+      }
+    }
+    if(model.current_root_polygon != model.root_polygon)
+    {
+      this.drawSVGRootLines(ctx);      
+    }
+    this.drawSVGLabels(ctx);
+
+    return ctx.getSerializedSvg();
+  }
+
+  drawSVGPolygons(list: Array<Polygon>, opacity: boolean, ctx: any){
+    if(opacity){ctx.globalAlpha = 1}
+    else{ctx.globalAlpha = 0.3}
+
+    for(let shape of list)
+    {
+      let coord_list = [];
+      for(let element of shape.points)
+      {
+        coord_list.push(element.x);
+        coord_list.push(element.y);
+      }
+
+      ctx.fillStyle = '#' + Math.floor(shape.color[this.color_selector]).toString(16);
+      ctx.beginPath();
+      ctx.moveTo(coord_list[0], coord_list[1]);
+      for (let index = 2; index < coord_list.length; index+=2) {
+        ctx.lineTo(coord_list[index], coord_list[index+1])
+      }
+      ctx.closePath();
+      ctx.strokeStyle = '#000000';
+      ctx.stroke();
+      ctx.fill();
+    }
+  }
+
+  drawSVGRootLines(ctx: any){
+    let coord_list = []
+    for(let element of model.current_root_polygon.points)
+    {
+      coord_list.push(element.x);
+      coord_list.push(element.y);
+    }
+
+    ctx.beginPath();
+    ctx.moveTo(coord_list[0], coord_list[1]);
+    for (let index = 2; index < coord_list.length; index+=2) {
+      ctx.lineTo(coord_list[index], coord_list[index+1])
+    }
+    ctx.closePath();
+    ctx.strokeStyle = '#000000';
+    ctx.linewidth = 50;
+    ctx.stroke();
+  }
+
+  drawSVGLabels(ctx: any){
+    for(let [index, polygon] of model.current_root_polygon.polygon_children.entries())
+    {
+      let font_size = undefined;
+      if(model.staticFontSize){
+        if(model.root_polygon == model.current_root_polygon){font_size = 25}
+        else {font_size = model.current_root_polygon.width * 0.04;}
+      }
+      else{font_size = 1 + polygon.width / 11;}
+
+      let x = this.text_list[index].position.x;
+      let y = this.text_list[index].position.y;
+
+      ctx.globalAlpha = 1;
+      ctx.font = font_size.toString() + 'px Arial'
+      ctx.fillStyle = "white";
+      ctx.textAlign = "center";
+      ctx.fillText(polygon.name, x, y)
+      ctx.lineWidth = font_size / 40;
+      ctx.strokeText(polygon.name, x, y)
+    }
   }
 
   showTreemap(root: Polygon){
