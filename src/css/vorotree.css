@@ -122,3 +122,33 @@ body {
   margin: 1vh 1vw 1vh 1vw;
   display: block;
 }
+
+#breadcrumbs {
+  /* Content is centered vertically */
+  padding-left: 4px;
+  padding-bottom: 4px;
+  align-items: center;
+  display: flex;
+}
+
+#breadcrumbs a{
+  font-family: Futura,Trebuchet MS,Arial,sans-serif;
+  font-size: 13px;
+}
+
+#breadcrumbs div{
+  font-family: Futura,Trebuchet MS,Arial,sans-serif;
+  font-size: 13px;
+}
+
+.breadcrumb__separator {
+  margin: 0 8px;
+}
+
+#breadcrumb-bar{
+  display: none;
+}
+
+.row{
+  display: grid;
+}

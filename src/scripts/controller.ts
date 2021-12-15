@@ -10,6 +10,7 @@ export class Controller{
   private lastPinchWidth: number = view.width;
 
   public highlightedPolygon: Polygon = {} as Polygon;
+  public breadcrumbsActive: boolean = false;
 
   constructor()
   {
@@ -58,6 +59,24 @@ export class Controller{
   takeSVGshot(){
     let screenshot = view.constructSVG();
     this.downloadImage("screenshot.svg", screenshot);
+  }
+
+  toggleBreadcrumbs(){
+    let bar = <HTMLElement> document.getElementById('breadcrumb-bar')
+    let btn = <HTMLElement> document.getElementById('breadcrumb-btn')
+    console.log(bar.style.display)
+    if(bar.style.display != 'flex'){
+      bar.style.display = 'flex';
+      btn.innerHTML = "Deactivate Breadcrumbs"
+      this.breadcrumbsActive = true;
+      view.updateBreadcrumbs();
+    }
+    else{
+      bar.style.display = 'none';
+      btn.innerHTML = "Activate Breadcrumbs"
+      this.breadcrumbsActive = false;
+    }
+    view.resize()
   }
 
   downloadImage(name: string, href: any){
