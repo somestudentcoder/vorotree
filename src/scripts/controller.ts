@@ -120,7 +120,7 @@ export class Controller{
         }
       }
       if(target != null){
-        if((view.width > view.height &&
+        if((view.width >= view.height &&
           view.viewport.screenWidthInWorldPixels * ZOOMDIMENSIONRATIO < target.width)
           || 
           (view.width < view.height &&
