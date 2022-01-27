@@ -9,8 +9,37 @@ import chroma = require('chroma-js');
 var seedrandom = require('seedrandom');
 let AQUAMARINE = chroma.scale(['#80ff80', '#80ff9f', '#80ffbf', '#7fffd4', '#80ffdf', '#80ffff', '#80dfff', '#80bfff']);
 let RAINBOW = chroma.scale(['red', 'orange', 'yellow', 'green', 'turquoise', 'blue', 'purple']);
-let GRAYSCALE = chroma.scale(['#e6e6e6', '#cccccc', '#b3b3b3', '#999999', '#808080', '#737373', '#595959']);
+// let GRAYSCALE = chroma.scale(['#e6e6e6', '#cccccc', '#b3b3b3', '#999999', '#808080', '#737373', '#595959']);
 let Y_SCALE = chroma.scale(['#000000', '#7d7d7d']);
+let TYPE_LIST: indexList = {
+  [""]:     {color: 8553090, emoji: ""},
+  ["json"]: {color: 5277806, emoji: "🧾"},
+  ["txt"]:  {color: 4214431, emoji: "📄"},
+  ["html"]: {color: 16208929, emoji: "📑"}, 
+  ["doc"]:  {color: 1325534, emoji: "📄"}, 
+  ["docx"]: {color: 1325534, emoji: "📄"}, 
+  ["pdf"]:  {color: 11340544, emoji: "📕"},
+  ["xls"]:  {color: 1929026, emoji: "📊"},
+  ["xlsx"]: {color: 1929026, emoji: "📊"}, 
+  ["ppt"]:  {color: 13648931, emoji: "📈"},
+  ["pptx"]: {color: 13648931, emoji: "📈"}, 
+  ["csv"]:  {color: 4827469, emoji: "📊"},
+  ["ts"]:   {color: 3242182, emoji: "⌨️"}, 
+  ["js"]:   {color: 16244760, emoji: "⌨️"}, 
+  ["css"]:  {color: 2730723, emoji: "🎨"},
+  ["jpg"]:  {color: 6710988, emoji: "🖼️"},
+  ["jpeg"]: {color: 6710988, emoji: "🖼️"}, 
+  ["png"]:  {color: 15588985, emoji: "🖼️"},
+  ["svg"]:  {color: 16757560, emoji: "🖼️"},
+  ["mp3"]:  {color: 15751043, emoji: "🎵"},
+  ["wav"]:  {color: 292293, emoji: "🎵"},
+  ["zip"]:  {color: 16770452, emoji: "🗃️"},
+  ["exe"]:  {color: 13697191, emoji: "💽"},
+  ["bin"]:  {color: 9533697, emoji: "💽"},
+  ["py"]:   {color: 65301, emoji: "⚙️"}, 
+  ["bat"]:  {color: 7639471, emoji: "⚙️"},
+}
+
 
 export class Model{
   public currentPolygonID: number = 0;
@@ -160,49 +189,23 @@ export class Model{
       c2 = Y_SCALE(poly.site.y / view.height);
       let color2 = chroma.mix(c1, c2).num()
 
-      c1 = GRAYSCALE(poly.site.x / view.width);
-      c2 = Y_SCALE(poly.site.y / view.height);
-      let color3 = chroma.mix(c1, c2).num()
+      let name = this.getName(node.data);
+      let type: string = name.split('.')[name.split('.').length-1];
+      let color3 = TYPE_LIST[type]?.color;
+      if(color3 == undefined){color3 = TYPE_LIST[""].color};
 
       let color = [color1, color2, color3]
 
       let new_poly = Polygon.from(poly, poly.site, rootPolygon, color, this.getPath(node.data));
       new_poly.polygon_parent = rootPolygon;
-      new_poly.name = this.getName(node.data);
-      this.checkName(new_poly);
-
-      //new_poly.weight = this.calculateWeight(node);
+      new_poly.name = name;
+      this.checkNameForFileType(new_poly);
 
       rootPolygon.polygon_children.push(new_poly);
       this.treemapToPolygons(new_poly, node, false);
       i++;
     }
   }
-
-  // calculateWeight(root: HierarchyNode<unknown>){
-  //   let weight = this.getWeight(root.data);
-  //   if(weight == undefined || weight == ""){
-  //     if(root.children == undefined){
-  //       console.error("node has no weight and no children");
-  //       return;
-  //     }
-  //     weight = 0;
-  //     for(let child of root.children){
-  //       weight += this.calculateWeight(child);
-  //     }
-  //   }
-  //   return weight;
-  // }
-
-  // getWeight(obj: any = {}){
-  //   if(obj.hasOwnProperty('poly_weight')){
-  //     return obj.poly_weight;
-  //   }
-  //   else{
-  //     return obj.weight;
-  //   }
-
-  // }
 
   getPath(obj: any = {}){
     if(obj.hasOwnProperty('path')){
@@ -394,89 +397,14 @@ export class Model{
   }
 
 
-  checkName(polygon: Polygon)
+  checkNameForFileType(polygon: Polygon)
   {
     if(polygon.name.indexOf('.') > -1 && (polygon.name.split('.'))[0] != "")
     {
       let file_extension = polygon.name.split('.')[polygon.name.split('.').length-1]
-      switch(file_extension){
-        case "json":
-          polygon.name = '🧾' + polygon.name;
-          break;
-        case "txt":
-          polygon.name = '📄' + polygon.name;
-          break;
-        case "html":
-          polygon.name = '📑' + polygon.name;
-          break;
-        case "doc":
-          polygon.name = '📄' + polygon.name;
-          break;
-        case "docx":
-          polygon.name = '📄' + polygon.name;
-          break;
-        case "pdf":
-          polygon.name = '📕' + polygon.name;
-          break;
-        case "xls":
-          polygon.name = '📊' + polygon.name;
-          break;
-        case "xlsx":
-          polygon.name = '📊' + polygon.name;
-          break;
-        case "ppt":
-          polygon.name = '📈' + polygon.name;
-          break;
-        case "pptx":
-          polygon.name = '📈' + polygon.name;
-          break;
-        case "csv":
-          polygon.name = '📊' + polygon.name;
-          break;
-        case "ts":
-          polygon.name = '⌨️' + polygon.name;
-          break;
-        case "js":
-          polygon.name = '⌨️' + polygon.name;
-          break;
-        case "css":
-          polygon.name = '🎨' + polygon.name;
-          break;
-        case "jpg":
-          polygon.name = '🖼️' + polygon.name;
-          break;
-        case "jpeg":
-          polygon.name = '🖼️' + polygon.name;
-          break;
-        case "png":
-          polygon.name = '🖼️' + polygon.name;
-          break;
-        case "svg":
-          polygon.name = '🖼️' + polygon.name;
-          break;
-        case "mp3":
-          polygon.name = '🎵' + polygon.name;
-          break;
-        case "wav":
-          polygon.name = '🎵' + polygon.name;
-          break;
-        case "zip":
-          polygon.name = '🗃️' + polygon.name;
-          break;
-        case "exe":
-          polygon.name = '💽' + polygon.name;
-          break;
-        case "bin":
-          polygon.name = '💽' + polygon.name;
-          break;
-        case "py":
-          polygon.name = '⚙️' + polygon.name;
-          break;
-        case "bat":
-          polygon.name = '⚙️' + polygon.name;
-          break;
-        default:
-          break;
+      if(TYPE_LIST[file_extension] != undefined)
+      {
+        polygon.name = TYPE_LIST[file_extension].emoji + polygon.name;
       }
     }
   }
@@ -507,6 +435,7 @@ export class Model{
     element.type = "radio"
     element.name = "attribute"
     element.classList.add('radioButtons');
+    element.classList.add('dropdown-element');
     element.classList.add('weightedattribute');
     element.id = "children";
     element.value = "children";
@@ -515,6 +444,7 @@ export class Model{
     label.htmlFor = "children";
     label.appendChild(document.createTextNode('no. of children'));
     label.classList.add('weightedattribute');
+    label.classList.add('dropdown-element');
 
     settings_element?.appendChild(element);
     settings_element?.appendChild(label);
@@ -529,6 +459,7 @@ export class Model{
         element.type = "radio"
         element.name = "attribute"
         element.classList.add('radioButtons');
+        element.classList.add('dropdown-element');
         element.classList.add('weightedattribute');
         element.id = keys[index];
         element.value = keys[index];
@@ -536,6 +467,7 @@ export class Model{
         let label = document.createElement("label");
         label.htmlFor = keys[index];
         label.classList.add('weightedattribute');
+        label.classList.add('dropdown-element');
         label.appendChild(document.createTextNode(keys[index]));
 
         settings_element?.appendChild(element);
