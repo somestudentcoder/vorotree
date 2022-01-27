@@ -37,6 +37,14 @@ export class View{
       clearTimeout(timer);
       timer = setTimeout(view.resize, 500);
     });
+    window.addEventListener('click', function(e) {
+      let settingsButton = document.getElementById('settings-button') as HTMLElement;
+      let examplesButton = document.getElementById('examples-button') as HTMLElement;
+      let settingsMenu = document.getElementById('settings-dropdown') as HTMLElement;
+      let examplesMenu = document.getElementById('examples-dropdown') as HTMLElement;
+      if(e.target != settingsButton && e.target != settingsMenu && ! (<HTMLElement> e.target).classList.contains('dropdown-element')){settingsMenu.style.display = 'none'};
+      if(e.target != examplesButton && e.target != settingsMenu && ! (<HTMLElement> e.target).classList.contains('dropdown-element')){examplesMenu.style.display = 'none'};
+    });
 
     //init stage & text containers
     this.viewport = new Viewport(

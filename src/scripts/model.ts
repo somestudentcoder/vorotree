@@ -507,6 +507,7 @@ export class Model{
     element.type = "radio"
     element.name = "attribute"
     element.classList.add('radioButtons');
+    element.classList.add('dropdown-element');
     element.classList.add('weightedattribute');
     element.id = "children";
     element.value = "children";
@@ -515,6 +516,7 @@ export class Model{
     label.htmlFor = "children";
     label.appendChild(document.createTextNode('no. of children'));
     label.classList.add('weightedattribute');
+    label.classList.add('dropdown-element');
 
     settings_element?.appendChild(element);
     settings_element?.appendChild(label);
@@ -529,6 +531,7 @@ export class Model{
         element.type = "radio"
         element.name = "attribute"
         element.classList.add('radioButtons');
+        element.classList.add('dropdown-element');
         element.classList.add('weightedattribute');
         element.id = keys[index];
         element.value = keys[index];
@@ -536,6 +539,7 @@ export class Model{
         let label = document.createElement("label");
         label.htmlFor = keys[index];
         label.classList.add('weightedattribute');
+        label.classList.add('dropdown-element');
         label.appendChild(document.createTextNode(keys[index]));
 
         settings_element?.appendChild(element);
