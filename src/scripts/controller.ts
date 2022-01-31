@@ -91,7 +91,7 @@ export class Controller{
 
   moveTo(target: Polygon){
     let ratio = this.calculateZoomFactor(target)
-    view.viewport.snapZoom({removeOnComplete: true, height: view.viewport.worldScreenHeight * ratio, center: new PIXI.Point(target.center.x, target.center.y), time: 1200, removeOnInterrupt: true});
+    view.viewport.animate({position: new PIXI.Point(target.center.x, target.center.y), height: view.viewport.worldScreenHeight * ratio, removeOnInterrupt: true, ease: "easeInOutQuad"})
     this.setZoomFactor(target, ratio);
     view.showTreemap(model.current_root_polygon);
   }
