@@ -63,17 +63,15 @@ export class Controller{
 
   toggleBreadcrumbs(){
     let bar = <HTMLElement> document.getElementById('breadcrumb-bar')
-    let btn = <HTMLElement> document.getElementById('breadcrumb-btn')
-    console.log(bar.style.display)
-    if(bar.style.display != 'flex'){
+    let box = <HTMLInputElement> document.getElementById('breadcrumb-checkbox')
+    let value = box.checked;
+    if(value){
       bar.style.display = 'flex';
-      btn.innerHTML = "Deactivate Breadcrumbs"
       this.breadcrumbsActive = true;
       view.updateBreadcrumbs();
     }
     else{
       bar.style.display = 'none';
-      btn.innerHTML = "Activate Breadcrumbs"
       this.breadcrumbsActive = false;
     }
     view.resize()
@@ -139,6 +137,12 @@ export class Controller{
       this.setZoomFactor(model.current_root_polygon.polygon_parent, ratio)
       view.showTreemap(model.current_root_polygon);
     }
+
+    console.log("===================")
+    console.log(view.viewport.screenWidthInWorldPixels)
+    
+    console.log(view.width)
+    console.log("===================")
   }
 
   setZoomFactor(target: Polygon, ratio: number){

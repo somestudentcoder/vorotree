@@ -36,8 +36,9 @@
                 <div class="dropdown">
                     <button class="navbtn" type="button" id="settings-button">Settings</button>
                     <div class="dropdown-content" id="settings-dropdown">
-                        <a class="dropdown-element" href="javascript:controller.takeSVGshot()">SVG export</a>
-                        <a class="dropdown-element" href="javascript:controller.toggleBreadcrumbs()" id="breadcrumb-btn">Activate Breadcrumbs</a>
+                        <a class="dropdown-element" href="javascript:controller.takeSVGshot()">SVG Export..</a>
+                        <input onclick="javascript:controller.toggleBreadcrumbs()" class="dropdown-element" type="checkbox" id="breadcrumb-checkbox" name="breadcrumb-checkbox">
+                        <label class="dropdown-element" for="breadcrumb-checkbox">Breadcrumbs</label>
                         <div class="dropdowntitle">Color</div>
                             <input onclick="javascript:view.setColorScheme(1)" type="radio" name="color" class="radioButtons dropdown-element" id="aquamarine" value="aquamarine" checked="true">
                             <label class="dropdown-element" for="aquamarine">aquamarine</label>
@@ -74,7 +75,7 @@
     </header>
 
     <body>
-        <canvas id="theCanvas"></canvas>
+        <canvas id="VoroCanvas"></canvas>
         <script src="bundle.js"></script>
     </body>
 </html>

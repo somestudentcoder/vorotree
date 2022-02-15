@@ -415,6 +415,7 @@ export class Model{
 
   setFontSizeStatic(value: boolean){
     this.staticFontSize = value;
+    view.showTreemap(model.current_root_polygon);
   }
 
   setWeightAttribute(value: string){

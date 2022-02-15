@@ -28,8 +28,10 @@ export class View{
     this.width = window.innerWidth;
     this.offset = document.getElementById('site-header')?.offsetHeight as number;
     this.height = window.innerHeight - this.offset;
+    this.height /= window.devicePixelRatio;
+    this.width /= window.devicePixelRatio;
     this.app = new PIXI.Application({width: this.width, height: this.height, resolution: window.devicePixelRatio,
-      autoDensity: true, view: <HTMLCanvasElement>document.getElementById("theCanvas"), backgroundColor: 0xFFFFFF, resizeTo: window});
+      autoDensity: true, view: <HTMLCanvasElement>document.getElementById("VoroCanvas"), backgroundColor: 0xFFFFFF, resizeTo: window});
     document.body.appendChild(this.app.view)
 
     var timer: NodeJS.Timeout;
@@ -45,6 +47,10 @@ export class View{
       if(e.target != settingsButton && e.target != settingsMenu && ! (<HTMLElement> e.target).classList.contains('dropdown-element')){settingsMenu.style.display = 'none'};
       if(e.target != examplesButton && e.target != settingsMenu && ! (<HTMLElement> e.target).classList.contains('dropdown-element')){examplesMenu.style.display = 'none'};
     });
+    let logo = <HTMLElement> document.getElementById('name');
+    logo.addEventListener('click', function(){
+      window.alert("Master's Thesis Project\nDeveloped by Christopher Oser\n\nThesis: \"Responsive Voronoi Treemaps with VoroLib and VoroTree\"\nSupervised by Keith Andrews, TU Graz\n\nSource code under github.com/somestudentcoder/vorotree");
+    })
 
     //init stage & text containers
     this.viewport = new Viewport(
@@ -182,7 +188,7 @@ export class View{
     }
   }
 
-  //POSSIBILITY FOR LATER https://stackoverflow.com/questions/30554533/dynamically-resize-the-pixi-stage-and-its-contents-on-window-resize-and-window
+  //Note: https://stackoverflow.com/questions/30554533/dynamically-resize-the-pixi-stage-and-its-contents-on-window-resize-and-window
   resize()
   {
     view.app.resize();
