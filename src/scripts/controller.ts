@@ -131,7 +131,7 @@ export class Controller{
     }
     else if(model.current_root_polygon != model.root_polygon
       && (view.viewport.screenWidthInWorldPixels * ZOOMDIMENSIONRATIO > model.current_root_polygon.width
-          || view.viewport.screenWidthInWorldPixels == view.width))
+          || Math.ceil(view.viewport.screenWidthInWorldPixels) == view.width))
     {
       let ratio = this.calculateZoomFactor(model.current_root_polygon.polygon_parent)
       this.setZoomFactor(model.current_root_polygon.polygon_parent, ratio)
