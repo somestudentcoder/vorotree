@@ -80,14 +80,14 @@ You can find the output under `standalone/` in the project directory.
   $> npx gulp buildElectronAllApps
   ```
 
-The following command cleans the "dist" folder which includes the bundled source code.
+The following command cleans the `dist/` folder which includes the bundled source code.
 
   ```bash
   $> npx gulp clean
   ```
 
-The following command cleans the "dist" folder which includes the bundled source code,
-as well as the "node_modules" folder.
+The following command cleans the `dist/` folder which includes the bundled source code,
+as well as the `node_modules/` folder.
 
   ```bash
   $> npx gulp cleanAll
@@ -95,7 +95,7 @@ as well as the "node_modules" folder.
 
 The following command constructs a .json dataset from a specified folder. This folder
 can then be viewed and navigated within VoroTree. Specify input folder and output name
-in the "/data/folderdatasetconfig.js" file.
+in the `data/folderdatasetconfig.js` file.
 
   ```bash
   $> npx gulp constructFolderDataset
@@ -104,17 +104,17 @@ in the "/data/folderdatasetconfig.js" file.
 ## Deploying VoroTree to Github Pages ##
 
 Github Pages offers two ways of hosting your project. Either through an index.html within the root of your
-repository or with an index.html within a "docs" folder in your repository. In this repository the way of
-using a "docs" folder was chosen to avoid unnecessary or unwanted inclusion of updates to the hosted version
+repository or with an index.html within a `docs/` folder in your repository. In this repository the way of
+using a `docs/` folder was chosen to avoid unnecessary or unwanted inclusion of updates to the hosted version
 of VoroTree. To deploy a new version of VoroTree to the repository follow these steps:
 
-1. Run the deploy gulp command to build the project and place all necessary files in the apporpriate folder:
+1. Run the gulp deploy command to build the project and place all necessary files in the appropriate folder:
 
   ```bash
   $> npx gulp deploy
   ```
 
-2. Add and push all changes in the /docs folder to the git repository. Once these changes enter the "main/master" branch, GitHub Pages
+2. Add and push all changes in the `docs/` folder to the git repository. Once these changes enter the "main/master" branch, GitHub Pages
 will automatically update the source code of the hosted page.
 
 ## Included Data ##
