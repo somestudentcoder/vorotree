@@ -46,35 +46,35 @@ The following command runs the project as an Electron application.
   ```
 
 The following command compiles a standalone Electron application for the operating system it was called on.
-You can find the output under /standalone in the project directory.
+You can find the output under `standalone/` in the project directory.
 
   ```bash
   $> npx gulp buildElectronApp
   ```
 
 The following command compiles a standalone Electron application for Microsoft Windows x64.
-You can find the output under /standalone in the project directory.
+You can find the output under `standalone/` in the project directory.
 
   ```bash
   $> npx gulp buildElectronWinApp
   ```
 
 The following command compiles a standalone Electron application for MacOS.
-You can find the output under /standalone in the project directory.
+You can find the output under `standalone/` in the project directory.
 
   ```bash
   $> npx gulp buildElectronMacApp
   ```
 
 The following command compiles a standalone Electron application for Linux operating systems.
-You can find the output under /standalone in the project directory.
+You can find the output under `standalone/` in the project directory.
 
   ```bash
   $> npx gulp buildElectronLinuxApp
   ```
 
 The following command compiles standalone Electron applications for all available platforms.
-You can find the output under /standalone in the project directory.
+You can find the output under `standalone/` in the project directory.
 
   ```bash
   $> npx gulp buildElectronAllApps
@@ -93,7 +93,7 @@ as well as the "node_modules" folder.
   $> npx gulp cleanAll
   ```
 
-The following command contstructs a .json dataset from a specified folder. This folder
+The following command constructs a .json dataset from a specified folder. This folder
 can then be viewed and navigated within VoroTree. Specify input folder and output name
 in the "/data/folderdatasetconfig.js" file.
 
@@ -114,8 +114,8 @@ of VoroTree. To deploy a new version of VoroTree to the repository follow these 
   $> npx gulp deploy
   ```
 
-2. Add and push all changes in the /docs folder to the git repository. Once these changes enter the "main/master" branch, Github Pages
-will automatically update the sourcecode of the hosted page.
+2. Add and push all changes in the /docs folder to the git repository. Once these changes enter the "main/master" branch, GitHub Pages
+will automatically update the source code of the hosted page.
 
 ## Included Data ##
 
@@ -141,7 +141,7 @@ by Google to help departmentalize products in a shopping feed.
 The tool supports JSON and CSV files which need to have the following format in order to visualize the data properly.
 
 * **Name** is used as the label of the polygon.
-* **Children** or **Parent**, depending on the filetype used, define the hierarchical nature of your data.
+* **Children** or **Parent**, depending on the file type used, define the hierarchical nature of your data.
 * **Weight** influences the size of the polygon. Only the leaves should have this property. If the weight is not given, the size of the polygon depends on the amount of children.
 * Any other attributes of a data point that are a number are automatically added to the settings menu as a weight accessor. So any other numerical attributes in your data can also be used to weight the visualization i.e. **Size**, **Age** etc..
 
@@ -193,7 +193,7 @@ To create a Voronoi Treemap from a CSV file, the columns **name** and **parent**
  maxima,learned,10
 ```
 
-However if parents are not unique, the tool requires **id**, **name** and **parentId** to create a hierarchy from this data set.
+However, if parents are not unique, the tool requires **id**, **name** and **parentId** to create a hierarchy from this data set.
 
 ```csv
 id,name,parentId,weight

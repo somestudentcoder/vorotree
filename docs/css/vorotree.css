@@ -12,6 +12,7 @@ input {
   display: block;
   padding-top: 1.5vh;
   padding-bottom: 1.5vh;
+  cursor: pointer;
 }
 
 .nav{
@@ -38,13 +39,17 @@ header {
   color: black;
 }
 
-.navbtn:hover {
-  background-color: #b3ffe6;
+@media (hover: hover) {
+  .navbtn:hover {
+    background-color: #b3ffe6;
+  }
 }
+
 
 .navbtn:active {
   position:relative;
   top:1px;
+  background-color: #b3ffe6;
 }
 
 body {
@@ -121,6 +126,12 @@ body {
   float: left;
   margin: 1vh 1vw 1vh 1vw;
   display: block;
+}
+
+#breadcrumb-checkbox{
+  display: block;
+  float: left;
+  margin: 1vh 1vw 1vh 1vw;
 }
 
 #breadcrumbs {
