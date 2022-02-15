@@ -101,7 +101,6 @@ export class Controller{
     let dimensions = {
       dy: view.viewport.screenWidthInWorldPixels - this.lastPinchWidth
     };
-    window.alert("dy: " + dimensions.dy + "\nwidth: " + view.width + "\nscreenWidth: " + view.viewport.screenWidthInWorldPixels);
     this.wheeled(dimensions, view.viewport.center.x, view.viewport.center.y);
   }
 
