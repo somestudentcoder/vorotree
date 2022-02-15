@@ -47,6 +47,16 @@ export class View{
       if(e.target != settingsButton && e.target != settingsMenu && ! (<HTMLElement> e.target).classList.contains('dropdown-element')){settingsMenu.style.display = 'none'};
       if(e.target != examplesButton && e.target != settingsMenu && ! (<HTMLElement> e.target).classList.contains('dropdown-element')){examplesMenu.style.display = 'none'};
     });
+    window.addEventListener('touchstart', function(e) {
+      let settingsButton = document.getElementById('settings-button') as HTMLElement;
+      let examplesButton = document.getElementById('examples-button') as HTMLElement;
+      let settingsMenu = document.getElementById('settings-dropdown') as HTMLElement;
+      let examplesMenu = document.getElementById('examples-dropdown') as HTMLElement;
+      console.log(e.target);
+      console.log("target")
+      if(e.target != settingsButton && e.target != settingsMenu && ! (<HTMLElement> e.target).classList.contains('dropdown-element')){settingsMenu.style.display = 'none'};
+      if(e.target != examplesButton && e.target != settingsMenu && ! (<HTMLElement> e.target).classList.contains('dropdown-element')){examplesMenu.style.display = 'none'};
+    });
     let logo = <HTMLElement> document.getElementById('name');
     logo.addEventListener('click', function(){
       window.alert("Master's Thesis Project\nDeveloped by Christopher Oser\n\nThesis: \"Responsive Voronoi Treemaps with VoroLib and VoroTree\"\nSupervised by Keith Andrews, TU Graz\n\nSource code under github.com/somestudentcoder/vorotree");

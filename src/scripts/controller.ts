@@ -1,6 +1,5 @@
 import { Polygon } from './polygon';
 import * as PIXI from 'pixi.js';
-import { desktopCapturer } from 'electron';
 
 //this decides how large a polygon must be on screen to be entered. (using wheel/pinch)
 let ZOOMDIMENSIONRATIO = 0.50;
@@ -92,11 +91,6 @@ export class Controller{
     view.viewport.animate({position: new PIXI.Point(target.center.x, target.center.y), height: view.viewport.worldScreenHeight * ratio, removeOnInterrupt: true, ease: "easeInOutQuad"})
     this.setZoomFactor(target, ratio);
     view.showTreemap(model.current_root_polygon);
-    console.log("===================")
-    console.log(view.viewport.screenWidthInWorldPixels)
-    
-    console.log(view.width)
-    console.log("===================")
   }
 
   pinchStart(){
@@ -107,6 +101,7 @@ export class Controller{
     let dimensions = {
       dy: view.viewport.screenWidthInWorldPixels - this.lastPinchWidth
     };
+    window.alert("dy: " + dimensions.dy + "\nwidth: " + view.width + "\nscreenWidth: " + view.viewport.screenWidthInWorldPixels);
     this.wheeled(dimensions, view.viewport.center.x, view.viewport.center.y);
   }
 
@@ -142,12 +137,6 @@ export class Controller{
       this.setZoomFactor(model.current_root_polygon.polygon_parent, ratio)
       view.showTreemap(model.current_root_polygon);
     }
-
-    console.log("===================")
-    console.log(view.viewport.screenWidthInWorldPixels)
-    
-    console.log(view.width)
-    console.log("===================")
   }
 
   setZoomFactor(target: Polygon, ratio: number){
