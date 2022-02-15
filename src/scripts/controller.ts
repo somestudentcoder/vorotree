@@ -92,6 +92,11 @@ export class Controller{
     view.viewport.animate({position: new PIXI.Point(target.center.x, target.center.y), height: view.viewport.worldScreenHeight * ratio, removeOnInterrupt: true, ease: "easeInOutQuad"})
     this.setZoomFactor(target, ratio);
     view.showTreemap(model.current_root_polygon);
+    console.log("===================")
+    console.log(view.viewport.screenWidthInWorldPixels)
+    
+    console.log(view.width)
+    console.log("===================")
   }
 
   pinchStart(){

@@ -28,8 +28,6 @@ export class View{
     this.width = window.innerWidth;
     this.offset = document.getElementById('site-header')?.offsetHeight as number;
     this.height = window.innerHeight - this.offset;
-    this.height /= window.devicePixelRatio;
-    this.width /= window.devicePixelRatio;
     this.app = new PIXI.Application({width: this.width, height: this.height, resolution: window.devicePixelRatio,
       autoDensity: true, view: <HTMLCanvasElement>document.getElementById("VoroCanvas"), backgroundColor: 0xFFFFFF, resizeTo: window});
     document.body.appendChild(this.app.view)
@@ -44,6 +42,8 @@ export class View{
       let examplesButton = document.getElementById('examples-button') as HTMLElement;
       let settingsMenu = document.getElementById('settings-dropdown') as HTMLElement;
       let examplesMenu = document.getElementById('examples-dropdown') as HTMLElement;
+      console.log(e.target);
+      console.log("target")
       if(e.target != settingsButton && e.target != settingsMenu && ! (<HTMLElement> e.target).classList.contains('dropdown-element')){settingsMenu.style.display = 'none'};
       if(e.target != examplesButton && e.target != settingsMenu && ! (<HTMLElement> e.target).classList.contains('dropdown-element')){examplesMenu.style.display = 'none'};
     });
